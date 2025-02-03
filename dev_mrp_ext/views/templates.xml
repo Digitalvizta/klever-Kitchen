@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <!-- Inherit the existing manufacturing production form view -->
+        <record id="view_mrp_production_form" model="ir.ui.view">
+            <field name="name">mrp.production.form.inherit.batch</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@name='bom_label']" position="before">
+                        <field name="batch_output"/>
+                        <field name="workcenter_id"/>
+                        <field name="operation_id"/>
+                        <field name="batch_function"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

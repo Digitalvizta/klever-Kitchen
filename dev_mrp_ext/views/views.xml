@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <!-- Inherit the existing form view for mrp.bom -->
+        <record id="view_bom_form_inherit" model="ir.ui.view">
+            <field name="name">mrp.bom.form.inherit.batch_output</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+                <!-- Add the batch_output field to the form view -->
+                <xpath expr="//field[@name='product_qty']" position="after">
+                        <field name="batch_output" string="Batch Output"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
