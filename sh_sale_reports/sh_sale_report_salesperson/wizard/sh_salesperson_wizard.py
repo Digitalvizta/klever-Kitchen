@@ -21,6 +21,10 @@ class SalespersonWizard(models.TransientModel):
         ):
             return is_allowed_companies
         return False
+    
+    name = fields.Char(
+        string='Name', 
+        required=False)
 
     date_start = fields.Datetime(
         string="Start Date", required=True, default=fields.Datetime.now)

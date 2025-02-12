@@ -5,7 +5,7 @@
         <field name="name">sh.sale.report.salesperson.view.tree</field>
         <field name="model">sh.sale.report.salesperson</field>
         <field name="arch" type="xml">
-            <tree edit="0">
+            <list edit="0">
                 <field name="name" />
                 <field name="date_order" optional="show" />
                 <field name="sh_partner_id" optional="show" />
@@ -14,7 +14,7 @@
                 <field name="currency_id" invisible="1" />
                 <field name="paid_amount" sum="Total Paid Amount" optional="show" />
                 <field name="due_amount" sum="Total Due Amount" optional="show" />
-            </tree>
+            </list>
         </field>
     </record>
 

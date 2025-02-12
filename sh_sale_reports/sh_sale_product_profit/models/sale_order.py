@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 # Part of Softhealer Technologies.
-from odoo import api, models
+from odoo import api, models, fields
 
 
 class ShSaleOrder(models.Model):
     _inherit = 'sale.order'
+
+
+    sh_cost = fields.Float(string='Cost')
+
 
     @api.model
     def _create_sale_order_cost(self):

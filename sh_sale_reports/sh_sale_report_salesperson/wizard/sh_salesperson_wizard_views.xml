@@ -19,9 +19,9 @@
                 <group>
                     <field name="user_ids" colspan="2" nolabel="1"
                         groups="sales_team.group_sale_salesman_all_leads">
-                        <tree create="0">
+                        <list create="0">
                             <field name="name" />
-                        </tree>
+                        </list>
                     </field>
                 </group>
                 <footer>

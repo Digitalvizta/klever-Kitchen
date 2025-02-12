@@ -5,7 +5,7 @@
         <field name="name">sh.customer.sales.analysis.order.view.tree</field>
         <field name="model">sh.customer.sales.analysis.order</field>
         <field name="arch" type="xml">
-            <tree edit="0">
+            <list edit="0">
                 <field name="name" />
                 <field name="order_date" optional="show" />
                 <field name="user_id" optional="show" />
@@ -14,7 +14,7 @@
                 <field name="currency_id" column_invisible="True" />
                 <field name="amount_paid" sum="Total Amount Paid" optional="show" />
                 <field name="balance" sum="Total Balance" optional="show" />
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -22,7 +22,7 @@
         <field name="name">sh.customer.sales.analysis.product.view.tree</field>
         <field name="model">sh.customer.sales.analysis.product</field>
         <field name="arch" type="xml">
-            <tree edit="0">
+            <list edit="0">
                 <field name="name" />
                 <field name="order_date" optional="show" />
                 <field name="sh_partner_id" optional="show" />
@@ -33,7 +33,7 @@
                 <field name="currency_id" column_invisible="True" />
                 <field name="tax" sum="Total Tax" optional="show" />
                 <field name="subtotal" sum="Total Subtotal" optional="show" />
-            </tree>
+            </list>
         </field>
     </record>
 

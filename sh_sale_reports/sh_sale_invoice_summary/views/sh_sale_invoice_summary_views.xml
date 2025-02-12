@@ -5,7 +5,7 @@
         <field name="name">sh.sale.invoice.summary.view.tree</field>
         <field name="model">sh.sale.invoice.summary</field>
         <field name="arch" type="xml">
-            <tree edit="0">
+            <list edit="0">
                 <field name="name" />
                 <field name="date_order" optional="show" />
                 <field name="sh_partner_id" optional="show" />
@@ -15,7 +15,7 @@
                 <field name="currency_id" column_invisible="True" />
                 <field name="invoice_paid_amount" sum="Total Invoice Paid Amount" optional="show" />
                 <field name="invoice_due_amount" sum="Total Invoice Due Amount" optional="show" />
-            </tree>
+            </list>
         </field>
     </record>
 

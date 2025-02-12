@@ -23,12 +23,12 @@
         <field name="name">sh.sector.view.tree</field>
         <field name="model">sh.sector</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="sequence" widget="handle" />
                 <field name="name" />
                 <field name="from_time" widget="float_time" />
                 <field name="to_time" widget="float_time" />
-            </tree>
+            </list>
         </field>
     </record>
 

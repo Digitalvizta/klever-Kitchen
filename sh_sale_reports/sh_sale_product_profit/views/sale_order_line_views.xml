@@ -6,8 +6,9 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']"
-                position="after">
+<!--            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']"-->
+            <xpath expr="//field[@name='order_line']"
+                position="inside">
                 <field name="sh_cost" column_invisible="True" />
             </xpath>
         </field>

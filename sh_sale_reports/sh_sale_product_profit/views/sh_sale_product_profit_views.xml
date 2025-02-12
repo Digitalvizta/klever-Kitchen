@@ -5,7 +5,7 @@
         <field name="name">sh.sale.product.profit.view.tree</field>
         <field name="model">sh.sale.product.profit</field>
         <field name="arch" type="xml">
-            <tree edit="0">
+            <list edit="0">
                 <field name="name" />
                 <field name="date_order" optional="show" />
                 <field name="product_id" optional="show" />
@@ -16,7 +16,7 @@
                 <field name="currency_id" column_invisible="True" />
                 <field name="profit" sum="Total Profit" optional="show" />
                 <field name="margin" sum="Total Margin" optional="show" />
-            </tree>
+            </list>
         </field>
     </record>
 

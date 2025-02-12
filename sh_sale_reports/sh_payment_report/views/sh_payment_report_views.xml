@@ -5,7 +5,7 @@
         <field name="name">sh.payment.report.view.tree</field>
         <field name="model">sh.payment.report</field>
         <field name="arch" type="xml">
-            <tree edit="0">
+            <list edit="0">
                 <field name="name" />
                 <field name="invoice_date" optional="show" />
                 <field name="invoice_user_id" optional="show" />
@@ -14,7 +14,7 @@
                 <field name="bank" sum="Total Bank Amount" optional="show" />
                 <field name="cash" sum="Total Cash Amount" optional="show" />
                 <field name="total" sum="Total Amount" optional="show" />
-            </tree>
+            </list>
         </field>
     </record>
 

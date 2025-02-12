@@ -5,11 +5,11 @@
         <field name="name">sh.sale.details.view.tree</field>
         <field name="model">sh.sale.details</field>
         <field name="arch" type="xml">
-            <tree edit="0">
+            <list edit="0">
                 <field name="name" options="{'no_open': True, 'no_create': True}" />
                 <field name="quantity" optional="show" />
                 <field name="price_unit" optional="show" />
-            </tree>
+            </list>
         </field>
     </record>
 

@@ -5,11 +5,11 @@
         <field name="name">sh.top.customers.view.tree</field>
         <field name="model">sh.top.customers</field>
         <field name="arch" type="xml">
-            <tree edit="0">
+            <list edit="0">
                 <field name="name" optional="show" />
                 <field name="sales_amount" sum="Total Sales Amount" optional="show" />
                 <field name="currency_id" column_invisible="True" />
-            </tree>
+            </list>
         </field>
     </record>
 

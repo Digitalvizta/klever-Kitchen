@@ -5,7 +5,7 @@
         <field name="name">sh.sale.by.category.view.tree</field>
         <field name="model">sh.sale.by.category</field>
         <field name="arch" type="xml">
-            <tree edit="0">
+            <list edit="0">
                 <field name="name" />
                 <field name="date_order" optional="show" />
                 <field name="sh_category_id" optional="show" />
@@ -17,7 +17,7 @@
                 <field name="tax" optional="show" sum="Total Tax" />
                 <field name="subtotal" optional="show" sum="Total Subtotal" />
                 <field name="total" optional="show" sum="Total" decoration-bf="1" />
-            </tree>
+            </list>
         </field>
     </record>
 

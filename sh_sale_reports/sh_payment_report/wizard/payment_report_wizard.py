@@ -20,6 +20,10 @@ class ShPaymentReportWizard(models.TransientModel):
             return is_allowed_companies
         return
 
+    name = fields.Char(
+        string='Name',
+        required=False)
+
     date_start = fields.Date(
         string="Start Date", required=True, default=fields.Date.today)
     date_end = fields.Date(

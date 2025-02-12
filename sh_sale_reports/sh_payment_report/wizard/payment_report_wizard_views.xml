@@ -19,9 +19,9 @@
                 <group>
                     <field colspan="2" nolabel="1" name="user_ids"
                         groups="sh_sale_reports.sh_payment_report_group">
-                        <tree create="0">
+                        <list create="0">
                             <field name="name" />
-                        </tree>
+                        </list>
                     </field>
                 </group>
                 <footer>

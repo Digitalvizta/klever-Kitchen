@@ -15,7 +15,7 @@
                 <field name="saturday" sum="Total Sales Product on Saturday" optional="show" />
                 <field name="sunday" sum="Total Sales Product on Sunday" optional="show" />
                 <field name="total" sum="Total Sales" optional="show" decoration-bf="1" />
-            </tree>
+            </list>
         </field>
     </record>
 

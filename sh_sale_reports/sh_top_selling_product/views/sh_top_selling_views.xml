@@ -4,10 +4,10 @@
         <field name="name">sh.tsp.top.selling.product.model.tree</field>
         <field name="model">sh.tsp.top.selling.product</field>
         <field name="arch" type="xml">
-            <tree edit="0">
+            <list edit="0">
                 <field name="name" optional="show" />
                 <field name="qty" sum="Total Quantity Sold" optional="show"/>
-            </tree>
+            </list>
         </field>
     </record>
 
