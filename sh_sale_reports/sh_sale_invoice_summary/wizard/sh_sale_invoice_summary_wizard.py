@@ -57,7 +57,7 @@ class SaleInvioceSummaryWizard(models.TransientModel):
         return {
             'type': 'ir.actions.act_window',
             'name': 'Sales Invoice Summary',
-            'view_mode': 'tree',
+            'view_mode': 'list',
             'res_model': 'sh.sale.invoice.summary',
             'context': "{'create': False,'search_default_group_customer': 1}"
         }

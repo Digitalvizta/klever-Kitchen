@@ -94,7 +94,7 @@ class ShPaymentReportWizard(models.TransientModel):
         return {
             'type': 'ir.actions.act_window',
             'name': 'Invoice Payment Report',
-            'view_mode': 'tree',
+            'view_mode': 'list',
             'res_model': 'sh.payment.report',
             'context': "{'create': False,'search_default_group_sales_person': 1}"
         }

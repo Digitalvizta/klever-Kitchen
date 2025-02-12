@@ -68,7 +68,7 @@ class SalesProductProfitWizard(models.TransientModel):
             return {
                 'type': 'ir.actions.act_window',
                 'name': 'Sales Product Profit',
-                'view_mode': 'tree',
+                'view_mode': 'list',
                 'res_model': 'sh.sale.product.profit',
                 'context': "{'create': False,'search_default_group_customer': 1}"
             }
@@ -97,7 +97,7 @@ class SalesProductProfitWizard(models.TransientModel):
             return {
                 'type': 'ir.actions.act_window',
                 'name': 'Sales Product Profit',
-                'view_mode': 'tree',
+                'view_mode': 'list',
                 'res_model': 'sh.sale.product.profit',
                 'context': "{'create': False,'search_default_group_product': 1}"
             }
@@ -125,7 +125,7 @@ class SalesProductProfitWizard(models.TransientModel):
             return {
                 'type': 'ir.actions.act_window',
                 'name': 'Sales Product Profit',
-                'view_mode': 'tree',
+                'view_mode': 'list',
                 'res_model': 'sh.sale.product.profit',
                 'context': "{'create': False,'search_default_group_customer': 1}"
             }

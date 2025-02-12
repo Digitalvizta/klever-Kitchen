@@ -83,7 +83,7 @@ class TopSellingWizard(models.TransientModel):
             return {
                 'type': 'ir.actions.act_window',
                 'name': 'Top Selling Products',
-                'view_mode': 'tree',
+                'view_mode': 'list',
                 'res_model': 'sh.tsp.top.selling.product',
                 'context': "{'create': False,'search_default_group_product': 1}"
             }

@@ -89,7 +89,7 @@ class SalespersonWizard(models.TransientModel):
         return {
             'type': 'ir.actions.act_window',
             'name': 'Sales Report By Salesperson',
-            'view_mode': 'tree',
+            'view_mode': 'list',
             'res_model': 'sh.sale.report.salesperson',
             'context': "{'create': False,'search_default_group_salesperson': 1}"
         }

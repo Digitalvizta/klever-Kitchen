@@ -70,7 +70,7 @@ class SalesDetailWizard(models.TransientModel):
         return {
             'type': 'ir.actions.act_window',
             'name': 'Sales Details',
-            'view_mode': 'tree',
+            'view_mode': 'list',
             'res_model': 'sh.sale.details',
             'context': "{'create': False,'search_default_group_product': 1}"
         }

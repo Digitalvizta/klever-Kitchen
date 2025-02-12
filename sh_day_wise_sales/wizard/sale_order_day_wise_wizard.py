@@ -126,7 +126,7 @@ class SaleOrderReport(models.Model):
             return {
                 'type': 'ir.actions.act_window',
                 'name': 'Days Wise Product Sales',
-                'view_mode': 'tree',
+                'view_mode': 'list',
                 'res_model': 'sh.sales.day.wise.report',
                 'context': "{'create': False,'search_default_group_product': 1}"
             }

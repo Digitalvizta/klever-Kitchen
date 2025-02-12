@@ -64,7 +64,7 @@ class SalesAnalysisWizard(models.TransientModel):
             return {
                 'type': 'ir.actions.act_window',
                 'name': 'Customer Sales Analysis',
-                'view_mode': 'tree',
+                'view_mode': 'list',
                 'res_model': 'sh.customer.sales.analysis.order',
                 'context': "{'create': False,'search_default_group_customer': 1}"
             }
@@ -89,7 +89,7 @@ class SalesAnalysisWizard(models.TransientModel):
             return {
                 'type': 'ir.actions.act_window',
                 'name': 'Customer Sales Analysis',
-                'view_mode': 'tree',
+                'view_mode': 'list',
                 'res_model': 'sh.customer.sales.analysis.product',
                 'context': "{'create': False,'search_default_group_customer': 1}"
             }

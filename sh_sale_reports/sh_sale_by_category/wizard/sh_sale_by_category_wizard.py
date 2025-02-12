@@ -55,7 +55,7 @@ class SaleByCategoryWizard(models.TransientModel):
         return {
             'type': 'ir.actions.act_window',
             'name': 'Sales By Product category',
-            'view_mode': 'tree',
+            'view_mode': 'list',
             'res_model': 'sh.sale.by.category',
             'context': "{'create': False,'search_default_group_category': 1}"
         }
