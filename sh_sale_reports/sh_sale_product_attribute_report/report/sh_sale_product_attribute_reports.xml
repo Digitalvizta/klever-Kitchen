@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="stock_paperformat_custom_report" model="report.paperformat">
+        <field name="name">Sale Product Report A4</field>
+        <field name="default" eval="False" />
+        <field name="format">custom</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">50</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">45</field>
+        <field name="page_height">297</field>
+        <field name="page_width">210</field>
+    </record>
+
+    <record id="sh_sale_product_report_action" model="ir.actions.report">
+        <field name="name">Sale Product Report</field>
+        <field name="model">report.sh_sale_reports.sh_sale_product_report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sh_sale_reports.sh_sale_product_report</field>
+        <field name="print_report_name">'Sale Product Report'</field>
+        <field name="paperformat_id" ref="sh_sale_reports.stock_paperformat_custom_report" />
+    </record>
+</odoo>

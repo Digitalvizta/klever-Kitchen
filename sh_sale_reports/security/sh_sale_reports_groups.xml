@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record model="ir.module.category" id="sh_module_sale_reports_catgeory">
+        <field name="name">Sale Reports</field>
+        <field name="description">Sale Reports Groups</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="sh_customer_sales_analysis_group" model="res.groups">
+        <field name="name">Customer Sales Analysis Report</field>
+        <field name="category_id" ref="sh_module_sale_reports_catgeory" />
+        <field name="users" eval="[(4, ref('base.user_admin'))]" />
+    </record>
+    <record id="sh_day_wise_sales_group" model="res.groups">
+        <field name="name">Day Wise Sales Report</field>
+        <field name="category_id" ref="sh_module_sale_reports_catgeory" />
+        <field name="users" eval="[(4, ref('base.user_admin'))]" />
+    </record>
+    <record id="sh_payment_report_group" model="res.groups">
+        <field name="name">Show Salesperson Field In Invoice Payment Report</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]" />
+    </record>
+    <record id="sh_payment_report_group_user" model="res.groups">
+        <field name="name">Invoice Payment Report</field>
+        <field name="category_id" ref="sh_module_sale_reports_catgeory" />
+        <field name="users" eval="[(4, ref('base.user_admin'))]" />
+    </record>
+    <record id="sh_product_sales_indent_group" model="res.groups">
+        <field name="name">Product sale Indent Report</field>
+        <field name="category_id" ref="sh_module_sale_reports_catgeory" />
+        <field name="users" eval="[(4, ref('base.user_admin'))]" />
+    </record>
+    <record id="sh_sale_by_category_group" model="res.groups">
+        <field name="name">Sales By category Report</field>
+        <field name="category_id" ref="sh_module_sale_reports_catgeory" />
+        <field name="users" eval="[(4, ref('base.user_admin'))]" />
+    </record>
+    <record id="sh_sale_details_report_group" model="res.groups">
+        <field name="name">Sale Details Report</field>
+        <field name="category_id" ref="sh_module_sale_reports_catgeory" />
+        <field name="users" eval="[(4, ref('base.user_admin'))]" />
+    </record>
+    <record id="sh_sale_invoice_summary_group" model="res.groups">
+        <field name="name">Sale Invoice Summary Report</field>
+        <field name="category_id" ref="sh_module_sale_reports_catgeory" />
+        <field name="users" eval="[(4, ref('base.user_admin'))]" />
+    </record>
+    <record id="sh_sale_product_attribute_report_group" model="res.groups">
+        <field name="name">Sale Product Attribute Report</field>
+        <field name="category_id" ref="sh_module_sale_reports_catgeory" />
+        <field name="users" eval="[(4, ref('base.user_admin'))]" />
+    </record>
+    <record id="sh_sale_product_profit_group" model="res.groups">
+        <field name="name">Sale Product Profit Report</field>
+        <field name="category_id" ref="sh_module_sale_reports_catgeory" />
+        <field name="users" eval="[(4, ref('base.user_admin'))]" />
+    </record>
+    <record id="sh_sale_report_salesperson_group" model="res.groups">
+        <field name="name">Sale Report By Sales Person</field>
+        <field name="category_id" ref="sh_module_sale_reports_catgeory" />
+        <field name="users" eval="[(4, ref('base.user_admin'))]" />
+    </record>
+    <record id="sh_sale_sector_report_group" model="res.groups">
+        <field name="name">Sale Sector Report</field>
+        <field name="category_id" ref="sh_module_sale_reports_catgeory" />
+        <field name="users" eval="[(4, ref('base.user_admin'))]" />
+    </record>
+    <record id="sh_top_customers_group" model="res.groups">
+        <field name="name">Top Customers Report</field>
+        <field name="category_id" ref="sh_module_sale_reports_catgeory" />
+        <field name="users" eval="[(4, ref('base.user_admin'))]" />
+    </record>
+    <record id="sh_top_selling_product_group" model="res.groups">
+        <field name="name">Top Selling Product Report</field>
+        <field name="category_id" ref="sh_module_sale_reports_catgeory" />
+        <field name="users" eval="[(4, ref('base.user_admin'))]" />
+    </record>
+
+</odoo>

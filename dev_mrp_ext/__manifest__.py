@@ -9,7 +9,7 @@
     'website': "https://www.DigitalVizta.com",
     'category': 'Manufacturing',
     'version': '0.1',
-    'depends': ['base', 'mrp'],  # The 'mrp' module is crucial for Manufacturing-related customizations.
+    'depends': ['base', 'mrp', 'sale_management'],  # The 'mrp' module is crucial for Manufacturing-related customizations.
     'data': [
         # Security file to manage access rights (if needed)
         # 'security/ir.model.access.csv',
@@ -18,6 +18,7 @@
         # 'views/mrp_production_views.xml',  # Custom views for batch production and output.
         'views/templates.xml',  # Additional templates if needed.
         'views/views.xml',  # Additional templates if needed.
+        'views/sale_order_view.xml',  # Additional templates if needed.
     ],
     'demo': [
         'demo/demo.xml',  # Demo data if you want to include some sample data for testing
