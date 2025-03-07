@@ -25,7 +25,7 @@ Sales Report Based On Analysis, Compare Customer By Sales Report Module, Compare
         'sh_day_wise_sales/security/ir.model.access.csv',
         'sh_day_wise_sales/wizard/sale_order_day_wise_wizard_views.xml',
         'sh_day_wise_sales/report/sale_order_day_wise_report_views.xml',
-        'sh_day_wise_sales/views/sh_day_wise_sales_views.xml',
+        # 'sh_day_wise_sales/views/sh_day_wise_sales_views.xml',
 
         "sh_payment_report/security/ir.model.access.csv",
         "sh_payment_report/wizard/payment_report_wizard_views.xml",

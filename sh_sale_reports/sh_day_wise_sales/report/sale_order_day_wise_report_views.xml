@@ -14,7 +14,7 @@
                                 <tr>
                                     <td width="25%" align="center"
                                         style="font-family: 'Helvetica'; font-size: 18px;">
-                                        <b>Start Date : </b>
+                                        <b>dd Start Date : </b>
                                         <span t-field="doc.start_date"></span>
                                     </td>
                                     <td width="25%" align="center"
@@ -223,7 +223,8 @@
                                                 <t t-set="reg" t-value="reg+i.get('friday')" />
                                             </span>
                                             <span t-if="i.get('saturday')">
-                                                <t t-set="reg" t-value="reg+i.get('saturday')" />
+                                                444
+<!--                                                <t t-set="reg" t-value="reg+i.get('saturday')" />-->
                                             </span>
                                             <span t-if="i.get('sunday')">
                                                 <t t-set="reg" t-value="reg+i.get('sunday')" />

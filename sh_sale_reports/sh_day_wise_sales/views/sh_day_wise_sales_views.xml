@@ -39,7 +39,8 @@
     </record>
 
     <record id="sh_day_wise_sales_action" model="ir.actions.act_window">
-        <field name="name">Days Wise Product Sales</field>
+<!--        <field name="name">Days Wise Product Sales</field>-->
+        <field name="name">Week Wise Product Sales</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sh.sales.day.wise.report</field>
         <field name="context">{'search_default_group_product': 1}</field>

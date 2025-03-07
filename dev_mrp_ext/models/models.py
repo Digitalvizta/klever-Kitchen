@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from math import ceil
 
 
 class MrpBom(models.Model):
@@ -31,7 +32,10 @@ class MrpProduction(models.Model):
         if 'product_qty' in values:
             # Update batch_output by dividing product_qty by 270
             # values['batch_output'] = values['product_qty'] / 270
-            values['batch_output'] = values['product_qty'] / self.bom_id.batch_output
+            batch_output = values['product_qty'] / self.bom_id.batch_output
+
+            # Round up the batch_output to the nearest whole number using ceil (round up)
+            values['batch_output'] = ceil(batch_output)
 
             # Update batch_number (you can modify this logic as needed)
             values['batch_number'] = values.get('product_qty', 0)  # Use product_qty or default to 0 if missing
@@ -54,7 +58,10 @@ class MrpProduction(models.Model):
             bom = self.env['mrp.bom'].browse(bom_id)
 
             # Calculate batch_output by dividing product_qty by the bom's batch_output factor
-            values['batch_output'] = values['product_qty'] / bom.batch_output
+            batch_output = values['product_qty'] / bom.batch_output
+
+            # Round up the batch_output to the nearest whole number using ceil (round up)
+            values['batch_output'] = ceil(batch_output)
 
             # Update batch_number (assumed to be same as product_qty here)
             values['batch_number'] = values.get('product_qty', 0)

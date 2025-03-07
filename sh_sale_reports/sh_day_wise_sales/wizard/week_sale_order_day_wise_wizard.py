@@ -78,11 +78,10 @@ class SaleOrderReport(models.Model):
                                         where date_order >= %s and date_order <= %s and so.state in ('sale','done')
                                         group by pt.name,so.date_order,pr.id''', (fields.Datetime.to_string(date_start), fields.Datetime.to_string(date_stop)))
                 product_detail = self._cr.dictfetchall()
-
             data_list = []
             final_list = []
             if len(product_detail) > 0:
-                data_list = self.generate_week_wise_dict(product_detail)
+                data_list = self.generate_day_wise_dict(product_detail)
             if data_list:
                 for data in data_list:
                     if data not in final_list:
@@ -98,26 +97,6 @@ class SaleOrderReport(models.Model):
         products = self.get_product()
         if products:
             return self.env.ref('sh_sale_reports.action_report_sale_order_day_wise_report').report_action(self)
-
-    # def display_report_data(self):
-    #     data_values = self.get_product()
-    #     self.env['sh.sales.day.wise.report'].search([]).unlink()
-    #     if data_values:
-    #         for record in data_values:
-    #             week = record.get('week')
-    #             total_value = record.get('total')
-    #             self.env['sh.sales.day.wise.report'].create({
-    #                 'name': record['product_id'],
-    #                 'monday': record['week'],
-    #                 # 'total': total_value,
-    #             })
-    #         return {
-    #             'type': 'ir.actions.act_window',
-    #             'name': 'Week Wise Product Sales',
-    #             'view_mode': 'list',
-    #             'res_model': 'sh.sales.week.wise.report',
-    #             'context': "{'create': False,'search_default_group_product': 1}"
-    #         }
 
     def display_report_data(self):
         data_values = self.get_product()
@@ -146,157 +125,11 @@ class SaleOrderReport(models.Model):
                 })
             return {
                 'type': 'ir.actions.act_window',
-                'name': 'Week Wise Product Sales',
+                'name': 'Days Wise Product Sales',
                 'view_mode': 'list',
                 'res_model': 'sh.sales.day.wise.report',
                 'context': "{'create': False,'search_default_group_product': 1}"
             }
-
-
-    # def print_sale_order_day_wise(self):
-    #     final_list = self.get_product()
-    #     workbook = Workbook()
-    #     heading_format = easyxf(
-    #         'font:height 300,bold True;pattern: pattern solid, fore_colour gray25;align: horiz center')
-    #     bold = easyxf(
-    #         'font:bold True;pattern: pattern solid, fore_colour gray25;align: horiz left')
-    #     center = easyxf('font:bold True;align: horiz center')
-    #     right = easyxf('font:bold True;align: horiz right')
-    #     worksheet = workbook.add_sheet(
-    #         'Week Wise Product Sales', cell_overwrite_ok=True)
-    #     worksheet.write_merge(
-    #         0, 1, 0, 8, 'Week Wise Product Sales', heading_format)
-    #     user_tz = self.env.user.tz or utc
-    #     local = timezone(user_tz)
-    #     start_date = datetime.strftime(utc.localize(datetime.strptime(str(
-    #         self.start_date), DEFAULT_SERVER_DATETIME_FORMAT)).astimezone(local), DEFAULT_SERVER_DATETIME_FORMAT)
-    #     end_date = datetime.strftime(utc.localize(datetime.strptime(str(
-    #         self.end_date), DEFAULT_SERVER_DATETIME_FORMAT)).astimezone(local), DEFAULT_SERVER_DATETIME_FORMAT)
-    #     worksheet.write_merge(3, 3, 0, 0, "Start Date: ", bold)
-    #     worksheet.write_merge(3, 3, 1, 1, start_date)
-    #     worksheet.write_merge(3, 3, 6, 7, "End Date : ", bold)
-    #     worksheet.write_merge(3, 3, 8, 8, end_date)
-    #
-    #     worksheet.col(0).width = int(25*260)
-    #     worksheet.col(1).width = int(14*260)
-    #     worksheet.col(2).width = int(14*260)
-    #     worksheet.col(3).width = int(14*260)
-    #     worksheet.col(4).width = int(14*260)
-    #     worksheet.col(5).width = int(14*260)
-    #     worksheet.col(6).width = int(14*260)
-    #     worksheet.col(7).width = int(14*260)
-    #     worksheet.col(8).width = int(14*260)
-    #
-    #     worksheet.write(5, 0, "Product Name", bold)
-    #     # worksheet.write(5, 1, "CW40", bold)
-    #     # worksheet.write(5, 2, "CW41", bold)
-    #     # worksheet.write(5, 3, "CW42", bold)
-    #     # worksheet.write(5, 4, "CW43", bold)
-    #     # worksheet.write(5, 5, "CW44", bold)
-    #     # worksheet.write(5, 6, "CW45", bold)
-    #     # worksheet.write(5, 7, "CW46", bold)
-    #     worksheet.write(5, 1, "Monday", bold)
-    #     worksheet.write(5, 2, "Tuesday", bold)
-    #     worksheet.write(5, 3, "Wednesday", bold)
-    #     worksheet.write(5, 4, "Thursday", bold)
-    #     worksheet.write(5, 5, "Friday", bold)
-    #     worksheet.write(5, 6, "Saturday", bold)
-    #     worksheet.write(5, 7, "Sunday", bold)
-    #     worksheet.write(5, 8, "Total", bold)
-    #     week_total = [0] * 7
-    #     row = 6
-    #
-    #     # if final_list:
-    #     #     for product in final_list:
-    #     #         reg = 0
-    #     #         worksheet.write(row, 0, product['product'])
-    #     #         for i in range(7):
-    #     #             week_label = f"CW{product.get('week_' + str(i), 0)}"
-    #     #             worksheet.write(row, i + 1, week_label)
-    #     #             reg += product.get('week_' + str(i), 0)
-    #     #         worksheet.write(row, 8, reg, right)
-    #     #         row += 1
-    #     monday_total = 0
-    #     tuesday_total = 0
-    #     wednesday_total = 0
-    #     thursday_total = 0
-    #     friday_total = 0
-    #     saturday_total = 0
-    #     sunday_total = 0
-    #     row = 6
-    #
-    #     if final_list:
-    #         for product in final_list:
-    #             reg = 0
-    #             worksheet.write(row, 0, product['product']['en_US'])
-    #             worksheet.write(row, 1, product['monday'])
-    #             worksheet.write(row, 2, product['tuesday'])
-    #             worksheet.write(row, 3, product['wednesday'])
-    #             worksheet.write(row, 4, product['thursday'])
-    #             worksheet.write(row, 5, product['friday'])
-    #             worksheet.write(row, 6, product['saturday'])
-    #             worksheet.write(row, 7, product['sunday'])
-    #             if product['monday']:
-    #                 monday_total += product['monday']
-    #                 reg += product['monday']
-    #             if product['tuesday']:
-    #                 tuesday_total += product['tuesday']
-    #                 reg += product['tuesday']
-    #             if product['wednesday']:
-    #                 wednesday_total += product['wednesday']
-    #                 reg += product['wednesday']
-    #             if product['thursday']:
-    #                 thursday_total += product['thursday']
-    #                 reg += product['thursday']
-    #             if product['friday']:
-    #                 friday_total += product['friday']
-    #                 reg += product['friday']
-    #             if product['saturday']:
-    #                 saturday_total += product['saturday']
-    #                 reg += product['saturday']
-    #             if product['sunday']:
-    #                 sunday_total += product['sunday']
-    #                 reg += product['sunday']
-    #             worksheet.write(row, 8, reg, right)
-    #             row += 1
-    #
-    #     row += 1
-    #     worksheet.write(row, 0, "Total", center)
-    #     worksheet.write(row, 1, monday_total, right)
-    #     worksheet.write(row, 2, tuesday_total, right)
-    #     worksheet.write(row, 3, wednesday_total, right)
-    #     worksheet.write(row, 4, thursday_total, right)
-    #     worksheet.write(row, 5, friday_total, right)
-    #     worksheet.write(row, 6, saturday_total, right)
-    #     worksheet.write(row, 7, sunday_total, right)
-    #     worksheet.write(row, 8, monday_total + tuesday_total + wednesday_total +
-    #                     thursday_total + friday_total + saturday_total + sunday_total, right)
-    #
-    #     filename = ('Days Wise Product Sales' + '.xls')
-    #     fp = BytesIO()
-    #     workbook.save(fp)
-    #     data = encodebytes(fp.getvalue())
-    #     ir_ttachment = self.env['ir.attachment']
-    #     attachment_vals = {
-    #         'name': filename,
-    #         'res_model': 'ir.ui.view',
-    #         'type': 'binary',
-    #         'datas': data,
-    #         'public': True,
-    #     }
-    #     fp.close()
-    #
-    #     attachment = ir_ttachment.search([('name', '=', filename),
-    #                                       ('type', '=', 'binary'),
-    #                                       ('res_model', '=', 'ir.ui.view')], limit=1)
-    #     if attachment:
-    #         attachment.write(attachment_vals)
-    #     else:
-    #         attachment = ir_ttachment.create(attachment_vals)
-    #
-    #     url = '/web/content/' + str(attachment.id) + '?download=true'
-    #     return {'type': 'ir.actions.act_url', 'url': url,
-    #             'target': 'new'}
 
     def print_sale_order_day_wise(self):
         final_list = self.get_product()
@@ -423,31 +256,39 @@ class SaleOrderReport(models.Model):
         return {'type': 'ir.actions.act_url', 'url': url,
                 'target': 'new'}
 
-
-
-    def generate_week_wise_dict(self, product_detail):
+    def generate_day_wise_dict(self, product_detail):
         data_dict = {}
 
         for product_dic in product_detail:
             product_id = product_dic['product_id']
             product_name = product_dic['product_name']
             order_date = product_dic['order_date']
-            week_num = order_date.strftime('%U')  # Get the week number
+            day_of_week = order_date.weekday()
             sold_cnt = int(product_dic['sold_cnt'])
 
-            if (product_id, week_num) not in data_dict:
-                data_dict[(product_id, week_num)] = {
+            if (product_id, day_of_week) not in data_dict:
+                data_dict[(product_id, day_of_week)] = {
                     'product_id': product_id,
                     'product': product_name,
-                    'week_' + week_num: sold_cnt,
-                    'total': 0
+                    'monday': 0,
+                    'tuesday': 0,
+                    'wednesday': 0,
+                    'thursday': 0,
+                    'friday': 0,
+                    'saturday': 0,
+                    'sunday': 0
                 }
 
-            # Update the sales count for the corresponding week
-            data_dict[(product_id, week_num)]['week_' + week_num] += sold_cnt
-            data_dict[(product_id, week_num)]['total'] += sold_cnt
+            # Update the sales count for the corresponding day
+            data_dict[(product_id, day_of_week)
+                      ][self.weekday_to_key(day_of_week)] += sold_cnt
 
         # Convert the dictionary values to a list
         data_list = list(data_dict.values())
 
         return data_list
+
+    def weekday_to_key(self, day_index):
+        weekdays = ['monday', 'tuesday', 'wednesday',
+                    'thursday', 'friday', 'saturday', 'sunday']
+        return weekdays[day_index]

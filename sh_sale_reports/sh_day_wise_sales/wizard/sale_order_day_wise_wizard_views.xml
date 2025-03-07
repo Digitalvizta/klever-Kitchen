@@ -30,14 +30,15 @@
         </field>
     </record>
     <record id="action_sale_order_day_wise" model="ir.actions.act_window">
-        <field name="name">Day Wise Sales Report</field>
+<!--        <field name="name">Day Wise Sales Report</field>-->
+        <field name="name">Week Wise Sales Report</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.order.report</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
 
-    <menuitem id="sale_order_day_wise_report" name="Day Wise Sales Report"
+    <menuitem id="sale_order_day_wise_report" name="Week Wise Sales Report"
         groups="sh_sale_reports.sh_day_wise_sales_group" parent="sale.menu_sale_report"
         action="action_sale_order_day_wise" sequence="42" />
 
