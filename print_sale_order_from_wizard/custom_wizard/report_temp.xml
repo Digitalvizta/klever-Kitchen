@@ -1,0 +1,74 @@
+<odoo>
+    <template id="sale_order_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2 class="text-center">Weekly Product-Wise Report</h2>
+                    <p>
+                        <strong>From:</strong>
+                        <t t-esc="data['start_date']"/>
+                        <strong>To:</strong>
+                        <t t-esc="data['end_date']"/>
+                    </p>
+
+                    <table class="table table-bordered"
+                           style="border: 1px solid black; width: 100%; text-align: left;">
+                        <thead>
+                            <tr style="background-color: #f2f2f2; font-weight: bold; border: 1px solid black;">
+                                <th style="border: 1px solid black; padding: 5px;">
+                                    <strong>Product</strong>
+                                </th>
+                                    <t t-foreach="weeks" t-as="week">
+                                        <strong>
+                                            <th style="border: 1px solid black; padding: 5px;">CW<t t-esc="week"/>
+                                        </th>
+                                        </strong>
+                                    </t>
+                            </tr>
+                        </thead>
+<!--                        <tbody>-->
+<!--                            <t t-foreach="products" t-as="product">-->
+<!--                                <tr style="border: 1px solid black;">-->
+<!--                                    <td style="border: 1px solid black; font-weight: bold; padding: 5px; text-align:left;">-->
+<!--                                        <t t-esc="product"/>-->
+<!--                                    </td>-->
+<!--                                    <t t-foreach="weeks" t-as="week">-->
+<!--                                        <td style="border: 1px solid black; padding: 5px;">-->
+<!--                                            <t t-set="qty" t-value="weekly_sales.get((year, week), {}).get(product, 000.0)"/>-->
+<!--                                            <t t-esc="qty"/>-->
+<!--                                        </td>-->
+<!--                                    </t>-->
+<!--                                </tr>-->
+<!--                            </t>-->
+<!--                        </tbody>-->
+
+                        <tbody>
+    <t t-foreach="products" t-as="product">
+        <tr style="border: 1px solid black;">
+            <td style="border: 1px solid black; font-weight: bold; padding: 5px; text-align:left;">
+                <t t-esc="product"/>
+            </td>
+            <t t-foreach="weeks" t-as="week">
+                <td style="border: 1px solid black; padding: 5px;">
+                    <t t-set="qty" t-value="weekly_sales.get((year, week), {}).get(product, 0)"/>
+                    <t t-if="qty == 0">
+                        <t t-esc="'-'"/>
+                    </t>
+                    <t t-elif="float(qty) &gt;= 1 and float(qty) &lt;= 9">
+                        <t t-esc="'{:02.1f}'.format(float(qty))"/>
+                    </t>
+                    <t t-else="">
+                        <t t-esc="qty"/>
+                    </t>
+                </td>
+            </t>
+        </tr>
+    </t>
+</tbody>
+
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

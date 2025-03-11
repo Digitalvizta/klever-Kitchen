@@ -1,0 +1,41 @@
+<odoo>
+    <record id="view_wizard_report_form" model="ir.ui.view">
+        <field name="name">wizard.report.form</field>
+        <field name="model">wizard.report</field>
+        <field name="arch" type="xml">
+            <form string="Generate Sale Order Report">
+                <group>
+                    <group>
+                        <field name="start_date"/>
+                    </group>
+                    <group>
+                        <field name="end_date"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Print Report" type="object" name="action_print_report" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!--    wizard action-->
+    <record id="action_wizard_report" model="ir.actions.act_window">
+        <field name="name">Generate Report</field>
+        <field name="res_model">wizard.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <!-- Ensure 'wizard_report' is the correct module where the view is defined -->
+        <field name="view_id" ref="print_sale_order_from_wizard.view_wizard_report_form"/>
+        <field name="binding_model_id" ref="model_wizard_report"/>
+        <field name="binding_view_types">form</field>
+    </record>
+
+    <!--    menu-->
+    <menuitem id="ext_hr_employee_id"
+              name="Weekly Product-Wise Report"
+              parent="sale.sale_menu_root"
+              action="action_wizard_report"
+    />
+</odoo>

@@ -1,0 +1,21 @@
+<odoo>
+
+    <template id="report_weekly_sales">
+        <t t-foreach="doc.report_data" t-as="data">
+            <div>
+                <p><strong>Product:</strong> <t t-esc="data['product']"/></p>
+                <p><strong>Total Sales:</strong> <t t-esc="data['total_sales']"/></p>
+                <hr/>
+            </div>
+        </t>
+    </template>
+
+    <record id="report_weekly_sales_analysis_action" model="ir.actions.report">
+        <field name="name">Weekly Sales</field>
+        <field name="model">report.sh_sale_reports.sh_cus_sale_analysis_doc</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sh_sale_reports.sh_cus_sale_analysis_doc</field>
+        <field name="print_report_name">'Customer Sales Analysis'</field>
+        <field name="paperformat_id" ref="sh_sale_reports.paperformat_customer_sale_analysis" />
+    </record>
+</odoo>
