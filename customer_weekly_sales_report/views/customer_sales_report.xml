@@ -1,7 +1,7 @@
 <odoo>
     <data>
         <record id="action_customer_sales_report" model="ir.actions.report">
-            <field name="name">Customer  Sales Report</field>
+            <field name="name">Customer Sales Report</field>
             <field name="model">sale.order</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">customer_weekly_sales_report.sales_report</field>
@@ -13,7 +13,7 @@
         <t t-call="web.html_container">
             <t t-call="web.external_layout">
                 <div class="page">
-                    <h2 class="text-center">Weekly Customer Vise Sales Report</h2>
+                    <h2 class="text-center">Weekly Customer Wise Sales Report</h2>
                     <p>
                         <strong>From:</strong> <t t-esc="data['start_date']"/>
                         <strong>To:</strong> <t t-esc="data['end_date']"/>
@@ -27,7 +27,7 @@
                                 </th>
                                 <t t-foreach="weeks" t-as="week">
                                     <th>
-                                        <strong>CW <t t-esc="week"/></strong>
+                                        <strong>CW<t t-esc="week"/></strong>
                                     </th>
                                 </t>
                             </tr>
@@ -38,8 +38,7 @@
                                     <td><strong><t t-esc="customer"/></strong></td>
                                     <t t-foreach="weeks" t-as="week">
                                         <td>
-                                            <t t-set="qty" t-value="weekly_sales.get(customer, {}).get(week, 0.0)"/>
-                                            <t t-esc="'{:04.1f}'.format(qty)"/>
+                                            <t t-set="qty" t-value="weekly_sales.get(customer, {}).get(week, 0.0)"/><t t-esc="'{:04.1f}'.format(qty)"/>
                                         </td>
                                     </t>
                                 </tr>
