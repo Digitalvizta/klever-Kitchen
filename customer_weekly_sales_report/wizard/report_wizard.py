@@ -2,11 +2,10 @@ from datetime import date, timedelta
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
-class SaleOrderReportWizard(models.TransientModel):
-    _name = 'wizard.report'
-    _description = 'Sale Order Report Wizard'
+class CustomerSalesReportWizard(models.TransientModel):
+    _name = 'customer.sales.report.wizard'
+    _description = 'Customer Weekly Sales Report Wizard'
 
-    sale_order_id = fields.Many2one('sale.order', string="Sale Order")
     start_date = fields.Date(
         string="Start Date",
         required=True,
@@ -32,17 +31,16 @@ class SaleOrderReportWizard(models.TransientModel):
         last_day = next_month - timedelta(days=next_month.day)  # Get last day of the month
         return last_day
 
-    def action_print_report(self):
-        if not self.start_date or not self.end_date:
-            raise UserError(_("Please select both Start Date and End Date."))
-
+    def action_print_customer_report(self):
         if self.start_date > self.end_date:
             raise UserError(_("Start Date cannot be greater than End Date."))
 
         sale_orders = self.env['sale.order'].search([
             ('date_order', '>=', self.start_date),
             ('date_order', '<=', self.end_date),
+            ('state', '=', 'sale'),
         ])
+        print(sale_orders)
 
         data = {
             'start_date': self.start_date,
@@ -50,4 +48,4 @@ class SaleOrderReportWizard(models.TransientModel):
             'sale_order_ids': sale_orders.ids
         }
 
-        return self.env.ref('print_sale_order_from_wizard.sale_order_report_print_from_wizard_action').report_action(self, data=data)
+        return self.env.ref('customer_weekly_sales_report.action_customer_sales_report').report_action(self, data=data)

@@ -1,20 +1,18 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Print Sale Orders From Wizard",
-
-    'summary': "Short (1 phrase/line) summary of the module's purpose",
-
+    'name': "Product-wise Weekly Sales Report",
+    'summary': "Generate weekly sales reports categorized by product.",
     'description': """
-Long description of module's purpose
+This module allows users to generate product-wise weekly sales reports 
+based on sale orders within a given date range.
     """,
-
     'author': "Jamshad Khan",
-    'category': 'sale',
-    'version': '0.1',
+    'category': 'Sales',
+    'version': '1.0',
+    'license': 'LGPL-3',
 
-    # any module necessary for this one to work correctly
-    'depends': ['base','sale'],
-
+    # Dependencies
+    'depends': ['base', 'sale'],
     # always loaded
     'data': [
         'security/ir.model.access.csv',
@@ -24,4 +22,3 @@ Long description of module's purpose
         'custom_wizard/report_temp.xml',
     ],
 }
-

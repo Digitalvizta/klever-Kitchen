@@ -13,7 +13,7 @@
                     </group>
                 </group>
                 <footer>
-                    <button string="Print Report" type="object" name="action_print_report" class="btn-primary"/>
+                    <button string="Print" type="object" name="action_print_report" class="btn-primary"/>
                     <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
@@ -22,7 +22,7 @@
 
     <!--    wizard action-->
     <record id="action_wizard_report" model="ir.actions.act_window">
-        <field name="name">Generate Report</field>
+        <field name="name">Generate Products Vise Weekly Sales Report</field>
         <field name="res_model">wizard.report</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
@@ -34,8 +34,8 @@
 
     <!--    menu-->
     <menuitem id="ext_hr_employee_id"
-              name="Weekly Product-Wise Report"
-              parent="sale.sale_menu_root"
+              name="Weekly Product Vise Report"
+              parent="sale.menu_sale_report"
               action="action_wizard_report"
     />
 </odoo>
