@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+ok# -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
 from math import ceil
