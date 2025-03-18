@@ -24,14 +24,14 @@
     </record>
 
     <record id="action_customer_sales_report_wizard" model="ir.actions.act_window">
-        <field name="name">Generate Customers Vise Weekly Sales Report</field>
+        <field name="name">Customers Wise Weekly Sales Report</field>
         <field name="res_model">customer.sales.report.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
 
     <menuitem id="menu_action_customer_sales_report_wizard"
-              name="Weekly Customer Vise Report"
+              name="Weekly Customer Wise Report"
               parent="sale.menu_sale_report"
               action="action_customer_sales_report_wizard"/>
 </odoo>
