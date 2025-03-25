@@ -7,9 +7,9 @@
             <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
             <field name="arch" type="xml">
                 <!-- Add the batch_output field to the form view -->
-                <xpath expr="//field[@name='product_qty']" position="after">
-                        <field name="batch_output" string="Batch Output"/>
-                </xpath>
+                <xpath expr="//div[hasclass('o_row')]" position="after">
+            <field name="batch_output" string="Batch Output"/>
+        </xpath>
             </field>
         </record>
     </data>

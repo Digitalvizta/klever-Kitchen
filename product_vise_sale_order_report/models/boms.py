@@ -12,6 +12,7 @@ class ProductBoms(models.Model):
     number = fields.Char("Reference",
                          default=lambda self: _('New'),
                          copy=False, readonly=True, tracking=True)
+    product_id = fields.Many2one('product.product', string='Main Product')
 
     bom_line_ids = fields.One2many('product.vise.boms', 'boms_id')
 
@@ -63,10 +64,9 @@ class BOMReport(models.AbstractModel):
         unique_weeks = set()
         unique_products = set()
 
-        # Get selected products from 'product.vise.boms' that belong to 'boms.boms'
-        selected_boms = self.env['boms.boms'].search([])
-        selected_products = self.env['product.vise.boms'].search([('boms_id', 'in', selected_boms.ids)]).mapped(
-            'product_id')
+        # Fetch all BOMs
+        all_boms = self.env['boms.boms'].search([])
+        bom_main_products = {bom.product_id.id: bom for bom in all_boms}
 
         for order in sale_orders:
             week_number = order.date_order.isocalendar()[1]
@@ -74,15 +74,23 @@ class BOMReport(models.AbstractModel):
             unique_weeks.add(week_number)
 
             for line in order.order_line:
-                product = line.product_id
+                sale_product = line.product_id
 
-                if product.id in selected_products.ids:
-                    unique_products.add(product.name)
-                    weekly_sales[(year, week_number)][product.name] += line.product_uom_qty
+                # Check if sale order product matches any BOM main product
+                if sale_product.id in bom_main_products:
+                    matching_bom = bom_main_products[sale_product.id]
 
-                    # Fetch BOM data
-                    bom_lines = self.env['product.vise.boms'].search([('product_id', '=', product.id)])
-                    for bom_line in bom_lines:
+                    # Fetch all products inside the BOM
+                    bom_products = self.env['product.vise.boms'].search([('boms_id', '=', matching_bom.id)])
+
+                    for bom_line in bom_products:
+                        product = bom_line.product_id
+                        unique_products.add(product.name)
+
+                        # Add sale order quantity
+                        weekly_sales[(year, week_number)][product.name] += line.product_uom_qty
+
+                        # Fetch BOM quantity data
                         week_data = json.loads(bom_line.week_data or "{}")
                         weekly_boms[(year, week_number)][product.name] += week_data.get(str(week_number), bom_line.qty)
 

@@ -12,7 +12,7 @@ based on sale orders within a given date range.
     'license': 'LGPL-3',
 
     # Dependencies
-    'depends': ['base', 'sale'],
+    'depends': ['base', 'sale', 'dev_mrp_ext'],
     # always loaded
     'data': [
         'security/ir.model.access.csv',
