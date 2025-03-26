@@ -12,7 +12,7 @@ class ProductBoms(models.Model):
     number = fields.Char("Reference",
                          default=lambda self: _('New'),
                          copy=False, readonly=True, tracking=True)
-    product_id = fields.Many2one('product.product', string='Main Product')
+    product_id = fields.Many2one('product.template', string='Main Product')
 
     bom_line_ids = fields.One2many('product.vise.boms', 'boms_id')
 
@@ -30,8 +30,8 @@ class ProductViseBoms(models.Model):
     _description = 'Product Vise BOMs'
 
     boms_id = fields.Many2one('boms.boms')
-    product_id = fields.Many2one('product.product', 'Product')
-    qty = fields.Float(string='Quantity')
+    product_id = fields.Many2one('product.template', 'Product')
+    qty = fields.Float(string='Batch Output')
 
     week_data = fields.Text(string="Week Data")  # Store weekly quantity data as JSON
 
@@ -64,10 +64,6 @@ class BOMReport(models.AbstractModel):
         unique_weeks = set()
         unique_products = set()
 
-        # Fetch all BOMs
-        all_boms = self.env['boms.boms'].search([])
-        bom_main_products = {bom.product_id.id: bom for bom in all_boms}
-
         for order in sale_orders:
             week_number = order.date_order.isocalendar()[1]
             year = order.date_order.year
@@ -76,12 +72,16 @@ class BOMReport(models.AbstractModel):
             for line in order.order_line:
                 sale_product = line.product_id
 
-                # Check if sale order product matches any BOM main product
-                if sale_product.id in bom_main_products:
-                    matching_bom = bom_main_products[sale_product.id]
+                # Find BOMs where the main product matches the sale order line product
+                matching_boms = self.env['boms.boms'].search([
+                    ('product_id', '=', sale_product.product_tmpl_id.id)
+                ])
 
-                    # Fetch all products inside the BOM
-                    bom_products = self.env['product.vise.boms'].search([('boms_id', '=', matching_bom.id)])
+                for matching_bom in matching_boms:
+                    # Fetch all products inside the matching BOM
+                    bom_products = self.env['product.vise.boms'].search([
+                        ('boms_id', '=', matching_bom.id)
+                    ])
 
                     for bom_line in bom_products:
                         product = bom_line.product_id
