@@ -28,9 +28,8 @@ class BatchOutput(models.TransientModel):
     def _get_end_date():
         """Returns the last day of the current month"""
         today = date.today()
-        next_month = today.replace(day=28) + timedelta(days=4)  # Move to next month
-        last_day = next_month - timedelta(days=next_month.day)  # Get last day of the month
-        return last_day
+        next_month = today.replace(day=28) + timedelta(days=4)
+        return next_month - timedelta(days=next_month.day)
 
     def action_batch_print_report(self):
         if not self.start_date or not self.end_date:
