@@ -17,9 +17,7 @@
                                 <th style="border: 1px solid black; padding: 5px;">Product</th>
                                 <t t-foreach="weeks" t-as="week">
                                     <th style="border: 1px solid black; padding: 5px;">
-                                        CW
-                                        <t t-esc="week"/>
-                                        (Batch Output)
+                                        CW<t t-esc="week"/> (Batch Output)
                                     </th>
                                 </t>
                             </tr>
@@ -31,10 +29,9 @@
                                         <t t-esc="product"/>
                                     </td>
                                     <t t-foreach="weeks" t-as="week">
-                                        <t t-set="qty" t-value="weekly_boms.get((year, week), {}).get(product, 0.0)"/>
-                                        <t t-set="qty_rounded" t-value="int(round(qty))"/>
                                         <td style="border: 1px solid black; padding: 5px;">
-                                            <t t-esc="qty_rounded"/>
+                                            <t t-set="qty" t-value="weekly_boms.get((year, week), {}).get(product, 0.0)"/>
+                                            <t t-esc="'{:04.1f}'.format(qty)"/>
                                         </td>
                                     </t>
                                 </tr>
