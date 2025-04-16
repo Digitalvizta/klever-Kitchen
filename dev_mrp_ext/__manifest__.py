@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Dev MRP EXT",
-    'summary': "Customizations for batch output in manufacturing",
+    'summary': "Customizations for batch output in manufacturing.",
     'description': """
     This module customizes the manufacturing process in Odoo to include batch output features. It provides an interface for batch production, tracking, and reporting within the manufacturing process.
     """,

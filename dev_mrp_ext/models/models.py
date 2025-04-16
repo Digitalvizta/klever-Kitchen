@@ -84,12 +84,22 @@ class MrpProduction(models.Model):
             # Update batch_number (you can modify this logic as needed)
             values['batch_number'] = values.get('product_qty', 0)  # Use product_qty or default to 0 if missing
         # else:
+        #     batch_output = self.product_qty / self.bom_id.batch_output
+        #
+        #     # Round up the batch_output to the nearest whole number using ceil (round up)
+        #     self.batch_output = ceil(batch_output)
         #     values['batch_output'] = qty_produced / self.bom_id.batch_output
 
 
 
         # Call the parent write method to ensure all other logic is executed
         return super(MrpProduction, self).write(values)
+
+    def action_confirm(self):
+        res = super().action_confirm()
+        batch_output = self.product_qty / self.bom_id.batch_output
+        self.batch_output = ceil(batch_output)
+        return res
 
     @api.model
     def create(self, values):
