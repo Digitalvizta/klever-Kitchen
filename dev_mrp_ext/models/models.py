@@ -98,17 +98,17 @@ class MrpProduction(models.Model):
         based on 'product_qty' during record creation.
         """
         if 'product_qty' in values:
-            bom_id  = values['bom_id']
+            bom_id = values['bom_id']
             bom = self.env['mrp.bom'].browse(bom_id)
 
             # Calculate batch_output by dividing product_qty by the bom's batch_output factor
-            # batch_output = values['product_qty'] / bom.batch_output
+            values['batch_output'] = bom.product_qty / bom.batch_output
 
             # Round up the batch_output to the nearest whole number using ceil (round up)
             # values['batch_output'] = ceil(batch_output)
 
             # Update batch_number (assumed to be same as product_qty here)
-            values['batch_number'] = values.get('product_qty', 0)
+            # values['batch_number'] = values.get('product_qty', 0)
 
         # Call the parent create method to create the record
         return super(MrpProduction, self).create(values)

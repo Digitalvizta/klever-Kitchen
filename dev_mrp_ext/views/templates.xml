@@ -8,6 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//label[@name='bom_label']" position="before">
                         <field name="batch_output"/>
+                        <field name="batch_number"/>
                         <field name="workcenter_id"/>
                         <field name="operation_id"/>
                         <field name="batch_function"/>
