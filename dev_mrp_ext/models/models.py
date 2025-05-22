@@ -67,22 +67,22 @@ class MrpProduction(models.Model):
     workcenter_id = fields.Many2one('mrp.workcenter', string="Work Center")
     operation_id = fields.Many2one('mrp.routing.workcenter', string="Operation")
 
-    def write(self, values):
-        """
-        Override the write method to customize the update of 'batch_output' and 'batch_number'
-        when 'product_qty' is updated.
-        """
+    # def write(self, values):
+    #     """
+    #     Override the write method to customize the update of 'batch_output' and 'batch_number'
+    #     when 'product_qty' is updated.
+    #     """
         # If product_qty is being updated, calculate batch_output and batch_number
-        if 'product_qty' in values:
+        # if 'product_qty' in values:
             # Update batch_output by dividing product_qty by 270
             # values['batch_output'] = values['product_qty'] / 270
-            batch_output = values['product_qty'] / self.bom_id.batch_output
+            # batch_output = values['product_qty'] / self.bom_id.batch_output
 
             # Round up the batch_output to the nearest whole number using ceil (round up)
-            values['batch_output'] = ceil(batch_output)
+            # values['batch_output'] = ceil(batch_output)
 
             # Update batch_number (you can modify this logic as needed)
-            values['batch_number'] = values.get('product_qty', 0)  # Use product_qty or default to 0 if missing
+            # values['batch_number'] = values.get('product_qty', 0)  # Use product_qty or default to 0 if missing
         # else:
         #     batch_output = self.product_qty / self.bom_id.batch_output
         #
@@ -93,13 +93,13 @@ class MrpProduction(models.Model):
 
 
         # Call the parent write method to ensure all other logic is executed
-        return super(MrpProduction, self).write(values)
+        # return super(MrpProduction, self).write(values)
 
-    def action_confirm(self):
-        res = super().action_confirm()
-        batch_output = self.product_qty / self.bom_id.batch_output
-        self.batch_output = ceil(batch_output)
-        return res
+    # def action_confirm(self):
+    #     res = super().action_confirm()
+    #     batch_output = self.product_qty / self.bom_id.batch_output
+    #     self.batch_output = ceil(batch_output)
+    #     return res
 
     @api.model
     def create(self, values):
