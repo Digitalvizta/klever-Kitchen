@@ -112,7 +112,8 @@ class MrpProduction(models.Model):
             bom = self.env['mrp.bom'].browse(bom_id)
 
             # Calculate batch_output by dividing product_qty by the bom's batch_output factor
-            values['batch_output'] = bom.product_qty / bom.batch_output
+            if bom.batch_output:
+               values['batch_output'] = bom.product_qty / bom.batch_output
 
             # Round up the batch_output to the nearest whole number using ceil (round up)
             # values['batch_output'] = ceil(batch_output)
