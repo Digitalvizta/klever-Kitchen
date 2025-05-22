@@ -114,6 +114,7 @@ class MrpProduction(models.Model):
             # Calculate batch_output by dividing product_qty by the bom's batch_output factor
             if bom.batch_output:
                values['batch_output'] = bom.product_qty / bom.batch_output
+               return super(MrpProduction, self).create(values)
 
             # Round up the batch_output to the nearest whole number using ceil (round up)
             # values['batch_output'] = ceil(batch_output)
@@ -122,6 +123,5 @@ class MrpProduction(models.Model):
             # values['batch_number'] = values.get('product_qty', 0)
 
         # Call the parent create method to create the record
-        return super(MrpProduction, self).create(values)
 
 
