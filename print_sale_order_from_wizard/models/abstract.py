@@ -22,8 +22,10 @@ class SaleOrderReport(models.AbstractModel):
 
             for line in order.order_line:
                 product = line.product_id.name
-                unique_products.add(product)
-                weekly_sales[(year, week_number)][product] += line.product_uom_qty
+                # Only add valid product names (non-False, non-empty strings)
+                if product and isinstance(product, str):
+                    unique_products.add(product)
+                    weekly_sales[(year, week_number)][product] += line.product_uom_qty
 
         sorted_weeks = sorted(unique_weeks)
         sorted_products = sorted(unique_products)

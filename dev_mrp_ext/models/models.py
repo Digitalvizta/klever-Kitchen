@@ -84,12 +84,31 @@ class MrpProduction(models.Model):
             # Update batch_number (you can modify this logic as needed)
             values['batch_number'] = values.get('product_qty', 0)  # Use product_qty or default to 0 if missing
         # else:
+        #     batch_output = self.product_qty / self.bom_id.batch_output
+        #
+        #     # Round up the batch_output to the nearest whole number using ceil (round up)
+        #     self.batch_output = ceil(batch_output)
         #     values['batch_output'] = qty_produced / self.bom_id.batch_output
 
 
 
         # Call the parent write method to ensure all other logic is executed
         return super(MrpProduction, self).write(values)
+
+    # def action_confirm(self):
+    #     res = super().action_confirm()
+    #     batch_output = self.product_qty / self.bom_id.batch_output
+    #     self.batch_output = ceil(batch_output)
+    #     return res
+
+    def action_confirm(self):
+        res = super().action_confirm()
+        for record in self:
+            if record.bom_id and record.bom_id.batch_output not in (0, None):
+                batch_output = record.product_qty / record.bom_id.batch_output
+                record.batch_output = ceil(batch_output)
+            # else: silently skip or optionally log/debug
+        return res
 
     @api.model
     def create(self, values):
@@ -102,7 +121,11 @@ class MrpProduction(models.Model):
             bom = self.env['mrp.bom'].browse(bom_id)
 
             # Calculate batch_output by dividing product_qty by the bom's batch_output factor
-            values['batch_output'] = bom.product_qty / bom.batch_output
+            # values['batch_output'] = bom.product_qty / bom.batch_output
+            if bom and bom.batch_output not in (0, None):
+                # Safe division and rounding
+                batch_output = values['product_qty'] / bom.batch_output
+                values['batch_output'] = ceil(batch_output)
 
             # Round up the batch_output to the nearest whole number using ceil (round up)
             # values['batch_output'] = ceil(batch_output)
