@@ -1,0 +1,22 @@
+<!-- views/sale_order_view.xml -->
+<odoo>
+    <record id="view_order_form_inherit_custom_fields" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.custom.fields</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='order_details']" position="after">
+                <group string="Additional Info">
+                    <group>
+                        <field name="pickup_date"/>
+                        <field name="po_no"/>
+                    </group>
+                    <group>
+                        <field name="bol"/>
+                        <field name="lot_no"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
