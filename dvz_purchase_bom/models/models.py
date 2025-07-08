@@ -50,4 +50,4 @@ class SaleOrderReportWizard(models.TransientModel):
             'sale_order_ids': sale_orders.ids
         }
 
-        return self.env.ref('dvz_purchase_bom.sale_order_report_print_from_wizard_action').report_action(self, data=data)
+        return self.env.ref('dvz_purchase_bom.purchase_order_report_print_from_wizard_action').report_action(self, data=data)

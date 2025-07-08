@@ -2,7 +2,7 @@ from collections import defaultdict
 from datetime import datetime
 from odoo import models, api
 
-class SaleOrderReport(models.AbstractModel):
+class PurchaseOrderReport(models.AbstractModel):
     _name = 'report.dvz_purchase_bom.purchase_order_report_template'
     _description = 'Weekly Sales Order Report'
 
