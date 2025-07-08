@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="sale_order_report_print_from_wizard_action" model="ir.actions.report">
+            <field name="name">Purchase Order Report</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">dvz_purchase_bom.purchase_order_report_template</field>
+            <field name="report_file">dvz_purchase_bom.purchase_order_report_template</field>
+        </record>
+
+    </data>
+</odoo>
