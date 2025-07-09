@@ -14,43 +14,38 @@
           <table class="table table-bordered" style="width: 100%; border: 1px solid black; border-collapse: collapse;">
             <thead>
               <tr style="background-color: #f2f2f2; font-weight: bold;">
-                <th rowspan="2" style="border: 1px solid black; padding: 5px; width: 150px; word-wrap: break-word;">
-                  Product<br/>(Reference)
-                </th>
+                <th rowspan="2" style="border: 1px solid black; padding: 5px; white-space: nowrap;">Product</th>
                 <t t-foreach="weeks" t-as="week">
-                  <th colspan="3" style="border: 1px solid black; text-align: center;">
+                  <th colspan="3" style="border: 1px solid black; padding: 5px; text-align: center;">
                     CW<t t-esc="week"/>
                   </th>
                 </t>
               </tr>
-              <tr style="background-color: #f9f9f9;">
+              <tr style="background-color: #f9f9f9; font-weight: normal;">
                 <t t-foreach="weeks" t-as="week">
-                  <th style="border: 1px solid black; text-align: center;">Available</th>
-                  <th style="border: 1px solid black; text-align: center;">Consumed</th>
-                  <th style="border: 1px solid black; text-align: center;">Required</th>
+                  <th style="border: 1px solid black; padding: 5px; text-align: center;">Available</th>
+                  <th style="border: 1px solid black; padding: 5px; text-align: center;">Consumed</th>
+                  <th style="border: 1px solid black; padding: 5px; text-align: center;">Required</th>
                 </t>
               </tr>
             </thead>
 
             <tbody>
-              <t t-foreach="products" t-as="product_info">
+              <t t-foreach="products" t-as="product">
                 <tr>
-                  <t t-set="product_name" t-value="product_info[0]"/>
-                  <t t-set="product_code" t-value="product_info[1]"/>
-                  <td style="border: 1px solid black; padding: 5px; word-break: break-word; white-space: pre-line;">
-                    <t t-esc="product_name"/><br/>
-                    <small>(<t t-esc="product_code"/>)</small>
+                  <td style="border: 1px solid black; padding: 5px; font-weight: bold; white-space: nowrap;">
+                    <t t-esc="product"/>
                   </td>
                   <t t-foreach="weeks" t-as="week">
-                    <t t-set="stock" t-value="product_stock_status.get((product_name, product_code), {})"/>
-                    <t t-set="consumed" t-value="weekly_sales.get((year, week), {}).get((product_name, product_code), 0.0)"/>
-                    <td style="border: 1px solid black; text-align: right;">
+                    <t t-set="stock" t-value="product_stock_status.get(product, {'available': 0.0, 'required': 0.0})"/>
+                    <t t-set="consumed" t-value="weekly_sales.get((year, week), {}).get(product, 0.0)"/>
+                    <td style="border: 1px solid black; padding: 5px; text-align: right;">
                       <t t-esc="'{:0.1f}'.format(stock.get('available', 0.0))"/>
                     </td>
-                    <td style="border: 1px solid black; text-align: right;">
+                    <td style="border: 1px solid black; padding: 5px; text-align: right;">
                       <t t-esc="'{:0.1f}'.format(consumed)"/>
                     </td>
-                    <td style="border: 1px solid black; text-align: right;">
+                    <td style="border: 1px solid black; padding: 5px; text-align: right;">
                       <t t-esc="'{:0.1f}'.format(stock.get('required', 0.0))"/>
                     </td>
                   </t>
