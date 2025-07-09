@@ -13,7 +13,7 @@
                     </group>
                 </group>
                 <footer>
-                    <button string="Print" type="object" name="action_print_report" class="btn-primary"/>
+                    <button string="Print" type="object" name="action_purchase_report" class="btn-primary"/>
                     <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>

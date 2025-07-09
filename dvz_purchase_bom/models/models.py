@@ -32,7 +32,7 @@ class SaleOrderReportWizard(models.TransientModel):
         last_day = next_month - timedelta(days=next_month.day)  # Get last day of the month
         return last_day
 
-    def action_print_report(self):
+    def action_purchase_report(self):
         if not self.start_date or not self.end_date:
             raise UserError(_("Please select both Start Date and End Date."))
 
