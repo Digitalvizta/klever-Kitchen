@@ -3,7 +3,7 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
 class PurchaseOrderReportWizard(models.TransientModel):
-    _name = 'wizard.report'
+    _name = 'purchase.wizard.report'
     _description = 'Purchase Order Report Wizard'
 
     sale_order_id = fields.Many2one('sale.order', string="Sale Order")
