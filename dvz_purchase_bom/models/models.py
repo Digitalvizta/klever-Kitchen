@@ -2,7 +2,7 @@ from datetime import date, timedelta
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
-class SaleOrderReportWizard(models.TransientModel):
+class PurchaseOrderReportWizard(models.TransientModel):
     _name = 'wizard.report'
     _description = 'Purchase Order Report Wizard'
 
