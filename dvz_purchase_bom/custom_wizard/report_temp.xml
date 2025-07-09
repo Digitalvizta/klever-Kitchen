@@ -6,36 +6,48 @@
                     <h2 class="text-center">Weekly Product Wise Purchase Report</h2>
                     <p>
                         <strong>From:</strong>
-<!--                        <t t-esc="data['start_date']"/>-->
+                        <!-- <t t-esc="data['start_date']"/> -->
                         <strong>To:</strong>
-<!--                        <t t-esc="data['end_date']"/>-->
+                        <!-- <t t-esc="data['end_date']"/> -->
                     </p>
 
-                    <table class="table table-bordered" style="border: 1px solid black; width: 100%; text-align: left;">
+                    <table class="table table-bordered" style="width: 100%; border: 1px solid black; border-collapse: collapse;">
                         <thead>
-                            <tr style="background-color: #f2f2f2; font-weight: bold; border: 1px solid black;">
-                                <th style="border: 1px solid black; padding: 5px;">
-                                    <strong>Product</strong>
-                                </th>
+                            <tr style="background-color: #f2f2f2; font-weight: bold;">
+                                <th style="border: 1px solid black; padding: 5px;" rowspan="2">Product</th>
                                 <t t-foreach="weeks" t-as="week">
-                                    <th style="border: 1px solid black; padding: 5px;">
-                                        <strong>CW<t t-esc="week"/>
-                                        </strong>
+                                    <th style="border: 1px solid black; padding: 5px; text-align: center;" colspan="1">
+                                        CW<t t-esc="week"/>
+                                    </th>
+                                </t>
+                            </tr>
+                            <tr style="background-color: #f9f9f9; font-weight: normal;">
+                                <t t-foreach="weeks" t-as="week">
+                                    <th style="border: 1px solid black; padding: 5px; text-align: center;">
+                                        <!-- Empty or could put labels if needed -->
                                     </th>
                                 </t>
                             </tr>
                         </thead>
+
                         <tbody>
                             <t t-foreach="products" t-as="product">
-                                <tr style="border: 1px solid black;">
-                                    <td style="border: 1px solid black; font-weight: bold; padding: 5px;">
+                                <tr>
+                                    <td style="border: 1px solid black; padding: 5px; font-weight: bold; white-space: nowrap;">
                                         <t t-esc="product"/>
                                     </td>
                                     <t t-foreach="weeks" t-as="week">
-                                        <td style="border: 1px solid black; padding: 5px;">
-                                            <t t-set="qty"
-                                               t-value="weekly_sales.get((year, week), {}).get(product, 0.0)"/>
-                                            <t t-esc="'{:04.1f}'.format(qty)"/>
+                                        <t t-set="consumed" t-value="weekly_sales.get((year, week), {}).get(product, 0.0)"/>
+                                        <t t-set="stock" t-value="product_stock_status.get(product, {})"/>
+                                        <td style="border: 1px solid black; padding: 5px; white-space: pre-line; text-align: center;">
+                                            <t t-if="consumed">
+                                                Available: <t t-esc="'{:0.1f}'.format(stock.get('available', 0.0))"/><br/>
+                                                Consumed: <t t-esc="'{:0.1f}'.format(consumed)"/><br/>
+                                                Required: <t t-esc="'{:0.1f}'.format(stock.get('required', 0.0))"/>
+                                            </t>
+                                            <t t-if="not consumed">
+                                                -
+                                            </t>
                                         </td>
                                     </t>
                                 </tr>
