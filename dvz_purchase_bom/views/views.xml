@@ -21,7 +21,7 @@
     </record>
 
     <!--    wizard action-->
-    <record id="action_wizard_report" model="ir.actions.act_window">
+    <record id="action_wizard_purchase_report" model="ir.actions.act_window">
         <field name="name">Products Wise Weekly Purchase Report</field>
         <field name="res_model">wizard.report</field>
         <field name="view_mode">form</field>
@@ -36,6 +36,6 @@
     <menuitem id="dvz_purchase_bom_id"
               name="Weekly Product Wise Purchase Report"
               parent="sale.menu_sale_report"
-              action="action_wizard_report"
+              action="action_wizard_purchase_report"
     />
 </odoo>
