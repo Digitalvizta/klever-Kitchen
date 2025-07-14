@@ -4,7 +4,7 @@
     'summary': "Generate weekly sales reports categorized by product.",
     'description': """
 This module allows users to generate product-wise weekly sales reports 
-based on sale orders within a given date range.
+based on sale orders within a given date range..
     """,
     'author': "DigitalVizta",
     'category': 'Sales',
