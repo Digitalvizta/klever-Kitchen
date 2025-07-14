@@ -5,6 +5,10 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+<!--            <xpath expr="//div[hasclass('o_td_label')]" position="after">-->
+            <xpath expr="//field[@name='has_active_pricelist']" position="before">
+                <field name="fulfill_order_date"/>
+            </xpath>
             <xpath expr="//group[@name='order_details']" position="after">
                 <group string="Additional Info">
                     <group>

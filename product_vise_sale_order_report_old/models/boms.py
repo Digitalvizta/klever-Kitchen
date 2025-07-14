@@ -55,8 +55,8 @@ class BOMReport(models.AbstractModel):
         # Get sale orders for the current month
         sale_orders = self.env['sale.order'].search([
             ('state', '=', 'sale'),
-            ('date_order', '>=', start_date),
-            ('date_order', '<=', end_date),
+            ('fulfill_order_date', '>=', start_date),
+            ('fulfill_order_date', '<=', end_date),
         ])
 
         weekly_sales = defaultdict(lambda: defaultdict(float))
@@ -65,8 +65,10 @@ class BOMReport(models.AbstractModel):
         unique_products = set()
 
         for order in sale_orders:
-            week_number = order.date_order.isocalendar()[1]
-            year = order.date_order.year
+            # week_number = order.date_order.isocalendar()[1]
+            week_number = order.fulfill_order_date.isocalendar()[1]
+            year = order.fulfill_order_date.year
+            # year = order.date_order.year
             unique_weeks.add(week_number)
 
             for line in order.order_line:

@@ -36,8 +36,8 @@ class CustomerSalesReportWizard(models.TransientModel):
             raise UserError(_("Start Date cannot be greater than End Date."))
 
         sale_orders = self.env['sale.order'].search([
-            ('date_order', '>=', self.start_date),
-            ('date_order', '<=', self.end_date),
+            ('fulfill_order_date', '>=', self.start_date),
+            ('fulfill_order_date', '<=', self.end_date),
             ('state', '=', 'sale'),
         ])
         print(sale_orders)

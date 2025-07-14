@@ -17,7 +17,8 @@ class CustomerSalesReport(models.AbstractModel):
         product_counts = {}  # Store product count per customer
 
         for order in sale_orders:
-            week_number = order.date_order.isocalendar()[1]
+            # week_number = order.date_order.isocalendar()[1]
+            week_number = order.fulfill_order_date.isocalendar()[1]
             unique_weeks.add(week_number)
             customer = order.partner_id.name
             unique_customers.add(customer)
