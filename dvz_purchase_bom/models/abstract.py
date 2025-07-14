@@ -23,7 +23,9 @@ class PurchaseOrderReport(models.AbstractModel):
             week_number = production_date.isocalendar()[1]
             unique_weeks.add(week_number)
 
-            for move in production.move_raw_ids.filtered(lambda m: m.state != 'cancel'):
+            # for move in production.move_raw_ids.filtered(lambda m: m.state != 'cancel'):
+            for move in production.move_raw_ids.filtered(lambda m: m.state != 'cancel' and m.product_id.sale_ok):
+
                 product = move.product_id
                 product_name = product.name
                 product_code = product.default_code or ''
