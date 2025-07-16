@@ -7,7 +7,7 @@ class SaleOrder(models.Model):
 
     pickup_date = fields.Datetime(string='Actual Ship Date')
     pickup_delivery_date = fields.Datetime(string='Pick Up /  Delivery')
-    fulfill_order_date = fields.Datetime(string='Fulfill Order')
+    fulfill_order_date = fields.Datetime(string='Order Order')
     po_no = fields.Char(string='PO No.')
     bol = fields.Char(string='BOL (Bill of Lading)')
     lot_no = fields.Char(string='Lot No.')
