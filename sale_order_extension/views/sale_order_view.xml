@@ -5,7 +5,7 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-<!--            <xpath expr="//div[hasclass('o_td_label')]" position="after">-->
+            <!--            <xpath expr="//div[hasclass('o_td_label')]" position="after">-->
             <xpath expr="//field[@name='has_active_pricelist']" position="before">
                 <field name="fulfill_order_date"/>
             </xpath>
@@ -13,6 +13,7 @@
                 <group string="Additional Info">
                     <group>
                         <field name="pickup_date"/>
+                        <field name="pickup_delivery_date"/>
                         <field name="po_no"/>
                     </group>
                     <group>
@@ -21,6 +22,9 @@
                     </group>
                 </group>
             </xpath>
+            <field name="schedule_delivery_date" position="attributes">
+                <attribute name="string">Due Date</attribute>
+            </field>
         </field>
     </record>
 </odoo>

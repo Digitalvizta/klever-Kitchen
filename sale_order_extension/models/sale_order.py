@@ -5,7 +5,8 @@ from odoo import models, fields
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    pickup_date = fields.Datetime(string='Pick Up Date')
+    pickup_date = fields.Datetime(string='Actual Ship Date')
+    pickup_delivery_date = fields.Datetime(string='Pick Up /  Delivery')
     fulfill_order_date = fields.Datetime(string='Fulfill Order')
     po_no = fields.Char(string='PO No.')
     bol = fields.Char(string='BOL (Bill of Lading)')
