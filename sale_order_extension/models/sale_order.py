@@ -19,10 +19,10 @@ class SaleOrder(models.Model):
     pickup_delivery = fields.Selection([
         ('pickup', 'Pick Up'),
         ('delivery', 'Delivery')
-    ], string='Pick Up / Delivery', required=True, default='pickup')
+    ], string='Pick Up / Delivery', required=False, default='pickup')
 
     pickup_delivery_datetime = fields.Datetime(
         string='Pick Up / Delivery Date & Time',
-        required=True
+        required=False
     )
 
