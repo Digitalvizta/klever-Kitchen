@@ -3,7 +3,7 @@
     <data>
 
         <record id="batch_output_action" model="ir.actions.report">
-            <field name="name">Sales Order Batch Wise Report</field>
+            <field name="name">Weekly Batch Summary Report</field>
             <field name="model">sale.order</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">product_vise_sale_order_report.batch_output_temp</field>

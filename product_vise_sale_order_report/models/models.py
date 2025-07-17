@@ -18,6 +18,9 @@ class BatchOutput(models.TransientModel):
         default=lambda self: self._get_end_date()
     )
 
+    year_week_ids = fields.Many2many('year.week', string="Weeks of the Year")
+
+
     @staticmethod
     def _get_start_date():
         """Returns the first day of the current month"""

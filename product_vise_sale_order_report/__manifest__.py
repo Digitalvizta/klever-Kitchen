@@ -29,4 +29,7 @@ based on sale orders within a given date range.
         'views/views.xml',
 
     ],
+
+    # Hook to populate year weeks after install
+    'post_init_hook': 'populate_current_year_weeks',
 }
