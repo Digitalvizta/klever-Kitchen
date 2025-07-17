@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="dvz_sale_report.list">
+      <field name="name">dvz_sale_report list</field>
+      <field name="model">dvz_sale_report.dvz_sale_report</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </list>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="dvz_sale_report.action_window">
+      <field name="name">dvz_sale_report window</field>
+      <field name="res_model">dvz_sale_report.dvz_sale_report</field>
+      <field name="view_mode">list,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="dvz_sale_report.action_server">
+      <field name="name">dvz_sale_report server</field>
+      <field name="model_id" ref="model_dvz_sale_report_dvz_sale_report"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "list,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="dvz_sale_report" id="dvz_sale_report.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="dvz_sale_report.menu_1" parent="dvz_sale_report.menu_root"/>
+    <menuitem name="Menu 2" id="dvz_sale_report.menu_2" parent="dvz_sale_report.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="dvz_sale_report.menu_1_list" parent="dvz_sale_report.menu_1"
+              action="dvz_sale_report.action_window"/>
+    <menuitem name="Server to list" id="dvz_sale_report" parent="dvz_sale_report.menu_2"
+              action="dvz_sale_report.action_server"/>
+-->
+  </data>
+</odoo>

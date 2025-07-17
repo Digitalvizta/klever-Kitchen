@@ -1,4 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_batch_output,batch_output,model_batch_output,base.group_user,1,1,1,1
-access_boms_boms,boms_boms,model_boms_boms,base.group_user,1,1,1,1
-access_product_vise_boms,product_vise_boms,model_product_vise_boms,base.group_user,1,1,1,1

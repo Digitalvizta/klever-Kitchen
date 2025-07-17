@@ -1,6 +1,6 @@
 <odoo>
     <record id="view_wizard_report_purchase_form" model="ir.ui.view">
-        <field name="name">wizard.report.form</field>
+        <field name="name">Weekly Purchase Summary Report</field>
         <field name="model">purchase.wizard.report</field>
         <field name="arch" type="xml">
             <form string="Generate Sale Order Report">
@@ -22,7 +22,7 @@
 
     <!--    wizard action-->
     <record id="action_wizard_purchase_report" model="ir.actions.act_window">
-        <field name="name">Products Wise Weekly Purchase Report</field>
+        <field name="name">Weekly Purchase Summary Report</field>
         <field name="res_model">purchase.wizard.report</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
@@ -34,7 +34,7 @@
 
     <!--    menu-->
     <menuitem id="dvz_purchase_bom_id"
-              name="Weekly Product Wise Purchase Report"
+              name="Weekly Purchase Summary Report"
               parent="sale.menu_sale_report"
               action="action_wizard_purchase_report"
     />

@@ -3,7 +3,7 @@
     <data>
 
         <record id="sale_order_report_print_from_wizard_action" model="ir.actions.report">
-            <field name="name">Sales Order Report</field>
+            <field name="name">Weekly Product Sales Summary Report</field>
             <field name="model">sale.order</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">print_sale_order_from_wizard.sale_order_report_template</field>

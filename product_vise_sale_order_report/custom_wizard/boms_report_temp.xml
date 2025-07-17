@@ -3,7 +3,7 @@
         <t t-call="web.html_container">
             <t t-call="web.external_layout">
                 <div class="page">
-                    <h2 class="text-center">Weekly Batch Output Wise Report</h2>
+                    <h2 class="text-center">Weekly Batch Summary Report</h2>
                     <p>
                         <strong>From:</strong>
                         <t t-esc="start_date"/>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Product-wise Weekly Sales Report",
+    'name': "Weekly Purchase Summary Report",
     'summary': "Generate weekly sales reports categorized by product.",
     'description': """
 This module allows users to generate product-wise weekly sales reports 

@@ -1,5 +1,5 @@
 {
-    'name': 'Customer Weekly Sales Report',
+    'name': 'Weekly Customer Sales Summary Report',
     'version': '18.0.1.0.0',
     'category': 'Sales',
     'summary': 'Generate a weekly sales report grouped by customers',

@@ -12,8 +12,17 @@
             <xpath expr="//group[@name='order_details']" position="after">
                 <group string="Additional Info">
                     <group>
-                        <field name="pickup_date"/>
-                        <field name="pickup_delivery_date"/>
+                        <field name="actual_ship_date" help='After completion, enter the date the order was actually picked up or delivered.'/>
+                        <field name="pickup_delivery"
+                               widget="selection"
+                               options="{'no_quick_create': True}"
+                               class="oe_inline"
+                               help="Select whether the order is for pickup or delivery."/>
+                        <field name="pickup_delivery_datetime"
+                               widget="datetime"
+                               options="{'format': 'YYYY-MM-DD HH:mm:ss'}"
+                               class="oe_form_field"
+                               help="Choose the date and time for pickup or delivery."/>
                         <field name="po_no"/>
                     </group>
                     <group>
@@ -23,7 +32,10 @@
                 </group>
             </xpath>
             <field name="schedule_delivery_date" position="attributes">
-                <attribute name="string">Due Date</attribute>
+                <attribute name="string">Production Date</attribute>
+            </field>
+            <field name="validity_date" position="attributes">
+                <attribute name="string">Quotation Date</attribute>
             </field>
         </field>
     </record>

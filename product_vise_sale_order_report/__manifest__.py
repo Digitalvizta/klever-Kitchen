@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Weekly Batch Output Wise Report",
+    'name': "Weekly Batch Summary Report",
     'summary': "Generate weekly sales reports categorized by product.",
     'description': """
 This module allows users to generate product-wise weekly sales reports 
 based on sale orders within a given date range.
     """,
-    'author': "Jamshad Khan",
+    'author': "DigitalVizta",
     'category': 'Sales',
     'version': '1.0',
     'license': 'LGPL-3',

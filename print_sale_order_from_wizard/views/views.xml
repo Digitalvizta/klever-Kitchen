@@ -22,7 +22,7 @@
 
     <!--    wizard action-->
     <record id="action_wizard_report" model="ir.actions.act_window">
-        <field name="name">Products Wise Weekly Sales Report</field>
+        <field name="name">Weekly Product Sales Summary Report</field>
         <field name="res_model">wizard.report</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
@@ -34,7 +34,7 @@
 
     <!--    menu-->
     <menuitem id="ext_hr_employee_id"
-              name="Weekly Product Wise Report"
+              name="Weekly Product Sales Summary Report"
               parent="sale.menu_sale_report"
               action="action_wizard_report"
     />
