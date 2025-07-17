@@ -25,23 +25,16 @@ class SaleOrderReport(models.AbstractModel):
                 ('state', '!=', 'cancel')
             ])
 
-            # Find all MRP orders linked to the sale order's procurement group
-            procurement_group = order.procurement_group_id
-            all_mrps = parent_mrp_orders
-            if procurement_group:
-                related_mrps = self.env['mrp.production'].search([
-                    ('procurement_group_id', '=', procurement_group.id),
-                    ('state', '!=', 'cancel')
-                ])
-                all_mrps |= related_mrps  # Include related MRPs (potential child orders)
+            for mrp in parent_mrp_orders:
+                # Include parent and child MRP orders using _get_children
+                all_mrps = mrp | mrp._get_children().filtered(lambda p: p.state != 'cancel')
+                for mrp_order in all_mrps:
+                    product_name = mrp_order.product_id.name
+                    products.add(product_name)
+                    batch_output = mrp_order.batch_output or 0.0  # Assume batch_output is a Float field
 
-            for mrp_order in all_mrps:
-                product_name = mrp_order.product_id.name
-                products.add(product_name)
-                batch_output = mrp_order.batch_output or 0.0  # Assume batch_output is a Float field
-
-                # Sum batch_output for the product in the corresponding week
-                weekly_outputs[(year, week_number)][product_name] += float(batch_output)
+                    # Sum batch_output for the product in the corresponding week
+                    weekly_outputs[(year, week_number)][product_name] += float(batch_output)
 
         sorted_weeks = sorted(unique_weeks)
         sorted_products = sorted(products)
