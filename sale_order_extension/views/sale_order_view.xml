@@ -16,12 +16,10 @@
                         <field name="pickup_delivery"
                                widget="selection"
                                options="{'no_quick_create': True}"
-                               class="oe_inline"
                                help="Select whether the order is for pickup or delivery."/>
                         <field name="pickup_delivery_datetime"
                                widget="datetime"
                                options="{'format': 'YYYY-MM-DD HH:mm:ss'}"
-                               class="oe_form_field"
                                help="Choose the date and time for pickup or delivery."/>
                         <field name="po_no"/>
                     </group>
