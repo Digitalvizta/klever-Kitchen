@@ -2,6 +2,7 @@ from collections import defaultdict
 from datetime import datetime, date
 from odoo import models, api
 
+
 class SaleOrderReport(models.AbstractModel):
     _name = 'report.product_vise_sale_order_report.batch_output_temp'
     _description = 'Weekly Sales Order Report'
@@ -26,8 +27,15 @@ class SaleOrderReport(models.AbstractModel):
             ])
 
             for mrp in parent_mrp_orders:
-                # Include parent and child MRP orders using _get_children
-                all_mrps = mrp | mrp._get_children().filtered(lambda p: p.state != 'cancel')
+                # Include parent and child MRP orders
+                # Search child MRPs where origin matches parent MRP's name
+                child_mrps_by_origin = self.env['mrp.production'].search([
+                    ('origin', '=', mrp.name),
+                    ('state', '!=', 'cancel')
+                ])
+                # Combine with children from _get_children method
+                all_mrps = mrp | child_mrps_by_origin | mrp._get_children().filtered(lambda p: p.state != 'cancel')
+
                 for mrp_order in all_mrps:
                     product_name = mrp_order.product_id.name
                     products.add(product_name)
