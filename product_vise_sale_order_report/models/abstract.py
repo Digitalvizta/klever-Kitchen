@@ -16,8 +16,8 @@ class SaleOrderReport(models.AbstractModel):
         products = set()
 
         for order in sale_orders.filtered(lambda o: o.state == 'sale'):
-            week_number = order.fulfill_order_date.isocalendar()[1]
-            year = order.fulfill_order_date.year
+            week_number = order.schedule_delivery_date.isocalendar()[1]
+            year = order.schedule_delivery_date.year
             unique_weeks.add(week_number)
 
             # Find parent MRP production orders where origin matches sale order name
