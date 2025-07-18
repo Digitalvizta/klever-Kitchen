@@ -42,8 +42,8 @@ class BatchOutput(models.TransientModel):
             raise UserError(_("Start Date cannot be greater than End Date."))
 
         sale_orders = self.env['sale.order'].search([
-            ('fulfill_order_date', '>=', self.start_date),
-            ('fulfill_order_date', '<=', self.end_date),
+            ('schedule_delivery_date', '>=', self.start_date),
+            ('schedule_delivery_date', '<=', self.end_date),
         ])
 
         data = {

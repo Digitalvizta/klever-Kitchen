@@ -22,7 +22,7 @@
 
     <!--    wizard action-->
     <record id="batch_output_wizard_action" model="ir.actions.act_window">
-        <field name="name">Weekly Batch Summary Report</field>
+        <field name="name">Production Batch Summary Report</field>
         <field name="res_model">batch.output</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
@@ -34,7 +34,7 @@
 
     <!--    menu-->
     <menuitem id="ext_hr_employee_id"
-              name="Weekly Batch Summary Report"
+              name="Production Batch Summary Report"
               parent="sale.menu_sale_report"
               action="batch_output_wizard_action"
     />

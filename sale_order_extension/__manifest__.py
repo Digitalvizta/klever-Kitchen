@@ -24,6 +24,7 @@ These fields help capture essential logistics and order-related information.
 
     'data': [
         'views/sale_order_view.xml',
+        'views/mrp_production_view.xml',
     ],
 
     'installable': True,
