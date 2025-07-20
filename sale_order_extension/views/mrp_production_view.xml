@@ -8,9 +8,6 @@
             <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
             <field name="arch" type="xml">
                 <!-- Insert your custom field right after the existing user_id field -->
-                <xpath expr="//field[@name='user_id']" position="after">
-                    <field name="production_date"/>
-                </xpath>
                  <xpath expr="//field[@name='user_id']" position="after">
                     <field name="production_date"/>
                 </xpath>
@@ -25,7 +22,6 @@
             <field name="arch" type="xml">
                  <xpath expr="//field[@name='type']" position="after">
                     <field name="main_bom" help="Tick this box to mark this Bill of Materials as the main one for this product."/>
-
                 </xpath>
 
             </field>

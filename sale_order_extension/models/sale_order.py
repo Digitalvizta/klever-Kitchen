@@ -31,10 +31,14 @@ class SaleOrder(models.Model):
         res = super().action_confirm()
 
         for order in self:
+            child_order = order.mrp_production_ids[0]
             for mo in order.mrp_production_ids:
-
                 if mo:
                     mo.production_date = order.schedule_delivery_date
 
+                    for raw in mo.move_raw_ids:
+                        cc = raw
+                        ddd = cc
+                        raw.created_production_id.production_date = order.schedule_delivery_date
         return res
 
