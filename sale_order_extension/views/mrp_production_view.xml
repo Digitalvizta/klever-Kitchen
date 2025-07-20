@@ -11,7 +11,6 @@
                  <xpath expr="//field[@name='user_id']" position="after">
                     <field name="production_date"/>
                 </xpath>
-
             </field>
         </record>
 
@@ -23,7 +22,6 @@
                  <xpath expr="//field[@name='type']" position="after">
                     <field name="main_bom" help="Tick this box to mark this Bill of Materials as the main one for this product."/>
                 </xpath>
-
             </field>
         </record>
 

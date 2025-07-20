@@ -41,15 +41,16 @@ class BatchOutput(models.TransientModel):
         if self.start_date > self.end_date:
             raise UserError(_("Start Date cannot be greater than End Date."))
 
-        sale_orders = self.env['sale.order'].search([
-            ('schedule_delivery_date', '>=', self.start_date),
-            ('schedule_delivery_date', '<=', self.end_date),
+        mrp_order = self.env['mrp.production'].search([
+            ('production_date', '>=', self.start_date),
+            ('production_date', '<=', self.end_date),
+            ('state', '!=', 'cancel'),
         ])
 
         data = {
             'start_date': self.start_date,
             'end_date': self.end_date,
-            'sale_order_ids': sale_orders.ids
+            'mrp_order': mrp_order.ids
         }
 
         return self.env.ref('product_vise_sale_order_report.batch_output_action').report_action(self, data=data)

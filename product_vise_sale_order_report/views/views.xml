@@ -35,7 +35,9 @@
     <!--    menu-->
     <menuitem id="ext_hr_employee_id"
               name="Production Batch Summary Report"
-              parent="sale.menu_sale_report"
+              parent="mrp.menu_mrp_reporting"
               action="batch_output_wizard_action"
     />
+    <!--              parent="sale.menu_sale_report"-->
+
 </odoo>
