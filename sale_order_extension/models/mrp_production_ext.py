@@ -42,7 +42,7 @@ class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
     production_date = fields.Datetime(string='Production Date')
-    root_sale_order_date = fields.Datetime(
+    root_sale_order_date = fields.Date(
         string='Root Sale Order Date',
         help='Date of the original sale order that triggered this MRP chain.',
         readonly=True
