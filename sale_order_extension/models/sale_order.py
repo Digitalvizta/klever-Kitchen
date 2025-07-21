@@ -28,16 +28,18 @@ class SaleOrder(models.Model):
         required=True
     )
 
-    @api.constrains('pickup_delivery_datetime', 'actual_ship_date', 'fulfill_order_date')
+    @api.constrains('pickup_delivery_datetime', 'actual_ship_date', 'fulfill_order_date', 'schedule_delivery_date')
     def _check_dates_after_fulfill(self):
         for order in self:
             if order.fulfill_order_date:
                 if order.pickup_delivery_datetime and order.pickup_delivery_datetime < order.fulfill_order_date:
-                    raise ValidationError("Pick Up / Delivery Date & Time must be after Fulfill Order Date.")
+                    raise ValidationError("Pick Up / Delivery Date & Time must be after Date of Order.")
                 if order.actual_ship_date and order.actual_ship_date < order.fulfill_order_date:
-                    raise ValidationError("Actual Ship Date must be after Fulfill Order Date.")
+                    raise ValidationError("Actual Ship Date must be after Date of Order.")
+                if order.schedule_delivery_date and order.schedule_delivery_date < order.fulfill_order_date:
+                    raise ValidationError("Scheduled Delivery Date must be after Date of Order.")
 
-    # def action_confirm(self):
+# def action_confirm(self):
     #     res = super().action_confirm()
     #
     #     for order in self:
