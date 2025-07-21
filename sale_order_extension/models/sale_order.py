@@ -37,7 +37,7 @@ class SaleOrder(models.Model):
                 if order.actual_ship_date and order.actual_ship_date < order.fulfill_order_date:
                     raise ValidationError("Actual Ship Date must be after Date of Order.")
                 if order.schedule_delivery_date and order.schedule_delivery_date < order.fulfill_order_date:
-                    raise ValidationError("Scheduled Delivery Date must be after Date of Order.")
+                    raise ValidationError("Production Date must be after Date of Order.")
 
 # def action_confirm(self):
     #     res = super().action_confirm()
