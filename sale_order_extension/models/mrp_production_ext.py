@@ -42,6 +42,11 @@ class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
     production_date = fields.Datetime(string='Production Date')
+    root_sale_order_date = fields.Datetime(
+        string='Root Sale Order Date',
+        help='Date of the original sale order that triggered this MRP chain.',
+        readonly=True
+    )
 
     def _get_root_origin_and_date(self, origin):
         """Trace back origin chain until a sale order is found or existing production date is available."""
@@ -67,17 +72,67 @@ class MrpProduction(models.Model):
 
         return None, fields.Datetime.now()
 
+    # @api.model
+    # def create(self, vals):
+    #     production = super().create(vals)
+    #     origin = production.origin
+    #
+    #     if origin:
+    #         root_origin, production_date = self._get_root_origin_and_date(origin)
+    #
+    #         # Set production_date for this and all MOs sharing that origin chain
+    #         related_mrps = self.search([('origin', '=', origin)])
+    #         (related_mrps | production).write({'production_date': production_date})
+    #
+    #     return production
+    def get_sale_order_from_origin_chain(self, origin):
+        """Walks up the origin chain and returns the related sale.order if found."""
+        visited = set()
+        current_origin = origin
+
+        while current_origin and current_origin not in visited:
+            visited.add(current_origin)
+
+            # 1. Check if current_origin matches a Sale Order name
+            sale_order = self.env['sale.order'].search([('name', '=', current_origin)], limit=1)
+            if sale_order:
+                return sale_order
+
+            # 2. Check if current_origin matches another MRP's name
+            parent_mrp = self.search([('name', '=', current_origin)], limit=1)
+            if parent_mrp:
+                current_origin = parent_mrp.origin  # Move one level up
+            else:
+                break  # No more parents, exit
+
+        return None
+
     @api.model
     def create(self, vals):
         production = super().create(vals)
         origin = production.origin
+        root_date = None
 
         if origin:
-            root_origin, production_date = self._get_root_origin_and_date(origin)
+            # 🔍 Try to get the Sale Order first
+            sale_order = production.get_sale_order_from_origin_chain(origin)
+            if sale_order:
+                root_date = sale_order.schedule_delivery_date
+            else:
+                # 🔄 If no Sale Order, get it from parent MRP's already-set date
+                parent_mrp = self.search([('name', '=', origin)], limit=1)
+                if parent_mrp:
+                    root_date = parent_mrp.root_sale_order_date or parent_mrp.production_date
 
-            # Set production_date for this and all MOs sharing that origin chain
-            related_mrps = self.search([('origin', '=', origin)])
-            (related_mrps | production).write({'production_date': production_date})
+        # If no origin or no match, fallback
+        if not root_date:
+            root_date = fields.Datetime.now()
+
+        # ✅ Write the root_sale_order_date and production_date to the new record
+        production.write({
+            'root_sale_order_date': root_date,
+            'production_date': root_date,
+        })
 
         return production
 
