@@ -1,6 +1,7 @@
 # models/sale_order.py
 
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -26,6 +27,15 @@ class SaleOrder(models.Model):
         string='Pick Up / Delivery Date & Time',
         required=True
     )
+
+    @api.constrains('pickup_delivery_datetime', 'actual_ship_date', 'fulfill_order_date')
+    def _check_dates_after_fulfill(self):
+        for order in self:
+            if order.fulfill_order_date:
+                if order.pickup_delivery_datetime and order.pickup_delivery_datetime < order.fulfill_order_date:
+                    raise ValidationError("Pick Up / Delivery Date & Time must be after Fulfill Order Date.")
+                if order.actual_ship_date and order.actual_ship_date < order.fulfill_order_date:
+                    raise ValidationError("Actual Ship Date must be after Fulfill Order Date.")
 
     # def action_confirm(self):
     #     res = super().action_confirm()
