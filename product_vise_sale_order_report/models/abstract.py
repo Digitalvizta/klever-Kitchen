@@ -12,28 +12,9 @@ class SaleOrderReport(models.AbstractModel):
     @api.model
     def _get_report_values(self, docids, data=None):
         parent_mrps = self.env['mrp.production'].browse(data['mrp_order'])
-
-        data_d = data
-        # data = data['data']
-        # date_from = data_d['start_date']
-        # date_from = data.get('start_date')
-        # date_to = data_d.get('end_date')
-
-        # if isinstance(date_from, str):
-        #     date_from = OdooDate.from_string(date_from)
-        # if isinstance(date_to, str):
-        #     date_to = OdooDate.from_string(date_to)
-
         weekly_outputs = defaultdict(lambda: defaultdict(float))
         unique_weeks = set()
         products = set()
-
-        # Fetch all parent MRP productions in the given date range
-        # parent_mrps = self.env['mrp.production'].search([
-        #     ('production_date', '>=', date_from),
-        #     ('production_date', '<=', date_to),
-        #     ('state', '!=', 'cancel'),
-        # ])
 
         for mrp in parent_mrps:
             # Skip if BoM doesn't have main_bom checked
