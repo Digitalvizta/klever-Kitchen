@@ -8,17 +8,26 @@
             <xpath expr="//field[@name='has_active_pricelist']" position="before">
                 <field name="fulfill_order_date" required="1"/>
             </xpath>
-            <xpath expr="//group[@name='order_details']" position="after">
+            <xpath expr="//group[@name='sale_header']" position="after">
                 <group string="Additional Info">
                     <group>
                         <field name="pickup_delivery"
                                widget="selection"
                                options="{'no_quick_create': True}"
                                help="Select whether the order is for pickup or delivery."/>
-                        <field name="pickup_delivery_datetime"
-                               widget="datetime"
-                               options="{'format': 'YYYY-MM-DD HH:mm:ss'}"
-                               help="Choose the date and time for pickup or delivery."/>
+                        <div class="o_row">
+                            <label for="pickup_delivery_datetime"/>
+
+                            <field name="pickup_delivery_datetime"
+                                   widget="datetime"
+                                   options="{'format': 'YYYY-MM-DD HH:mm:ss'}"
+                                   help="Choose the date and time for pickup or delivery."
+                                   class="o_col"/>
+                            <field name="pickup_week_number"
+                                   readonly="1"
+                                   string="Week"
+                                   class="o_col"/>
+                        </div>
                         <field name="po_no"/>
                     </group>
                     <group>

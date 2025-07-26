@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="dvz_partner_form_inherit_partner_type" model="ir.ui.view">
+            <field name="name">res.partner.form.dvz.partner.type</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet//group" position="inside">
+                    <group string="Partner Type">
+                        <field name="is_customer"/>
+                        <field name="is_vendor" />
+                        <field name="is_both"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="dvz_res_partner_search_view_inherit" model="ir.ui.view">
+            <field name="name">res.partner.search.dvz.partner.type</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='type_company']" position="after">
+                    <filter name="is_customer" string="Customers" domain="[('is_customer','=',True)]"/>
+                    <filter name="is_vendor" string="Vendors" domain="[('is_vendor','=',True)]"/>
+                    <filter name="is_both" string="Customers and Vendors" domain="[('is_both','=',True)]"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>
