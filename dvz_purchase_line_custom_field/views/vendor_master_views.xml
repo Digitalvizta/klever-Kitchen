@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Vendor Master Form View -->
+    <record id="view_vendor_master_form" model="ir.ui.view">
+        <field name="name">vendor.master.form</field>
+        <field name="model">vendor.master</field>
+        <field name="arch" type="xml">
+            <form string="Vendor Master">
+                <sheet>
+                    <group>
+                        <field name="vendor_name"/>
+                    </group>
+                    <field name="product_lines">
+                        <list editable="bottom">
+                            <field name="product_id"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vendor Master List View -->
+    <record id="view_vendor_master_list" model="ir.ui.view">
+        <field name="name">vendor.master.list</field>
+        <field name="model">vendor.master</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="vendor_name"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vendor Product Mapping Form View -->
+    <record id="view_vendor_product_mapping_form" model="ir.ui.view">
+        <field name="name">vendor.product.mapping.form</field>
+        <field name="model">vendor.product.mapping</field>
+        <field name="arch" type="xml">
+            <form string="Vendor Product Mapping">
+                <sheet>
+                    <group>
+                        <field name="vendor_id"/>
+                        <field name="vendor_product_id"/>
+                        <field name="product_name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vendor Product Mapping List View -->
+    <record id="view_vendor_product_mapping_list" model="ir.ui.view">
+        <field name="name">vendor.product.mapping.list</field>
+        <field name="model">vendor.product.mapping</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="vendor_id"/>
+                <field name="product_name"/>
+                <field name="vendor_product_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_vendor_master" model="ir.actions.act_window">
+        <field name="name">Vendor Masters</field>
+        <field name="res_model">vendor.master</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_vendor_product_mapping" model="ir.actions.act_window">
+        <field name="name">Vendor Product Mappings</field>
+        <field name="res_model">vendor.product.mapping</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menu Items (Under Purchase Module) -->
+    <menuitem id="menu_vendor_management_root"
+              name="Vendor Management"
+              parent="purchase.menu_purchase_root"
+              sequence="25"/>
+
+<!--    <menuitem id="menu_vendor_master"-->
+<!--              name="Vendor Master"-->
+<!--              parent="menu_vendor_management_root"-->
+<!--              action="action_vendor_master"-->
+<!--              sequence="1"/>-->
+
+    <menuitem id="menu_vendor_product_mapping"
+              name="Vendor Master"
+              parent="menu_vendor_management_root"
+              action="action_vendor_product_mapping"
+              sequence="2"/>
+</odoo>
