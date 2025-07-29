@@ -5,8 +5,19 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+                       <xpath expr="//field[@name='has_active_pricelist']" position="before">
+
+                <field name="date_order_week_number"
+                       readonly="1"
+                       string="Week"
+                       />
+            </xpath>
             <xpath expr="//field[@name='has_active_pricelist']" position="before">
                 <field name="fulfill_order_date" required="1"/>
+                <field name="pickup_week_number"
+                       readonly="1"
+                       string="Week"
+                       class="o_col"/>
             </xpath>
             <xpath expr="//group[@name='sale_header']" position="after">
                 <group string="Additional Info">
@@ -33,12 +44,31 @@
                     <group>
                         <field name="bol"/>
                         <field name="lot_no"/>
-                        <field name="actual_ship_date"
-                               help='After completion, enter the date the order was actually picked up or delivered.'/>
+                        <div class="o_row">
+                            <label for="actual_ship_date"/>
+                            <field name="actual_ship_date"
+                                   widget="datetime"
+                                   options="{'format': 'YYYY-MM-DD HH:mm:ss'}"
+                                   help='After completion, enter the date the order was actually picked up or delivered.'
+                                   class="o_col"/>
+
+                            <field name="actual_ship_week_number"
+                                   readonly="1"
+                                   string="Week"
+                                   class="o_col"/>
+                        </div>
+
 
                     </group>
                 </group>
             </xpath>
+            <xpath expr="//field[@name='schedule_delivery_date']" position="after">
+                <field name="schedule_delivery_week_number"
+                       readonly="1"
+                       string="Week"
+                       class="o_col"/>
+            </xpath>
+
             <field name="schedule_delivery_date" position="attributes">
                 <attribute name="string">Production Date</attribute>
                 <attribute name="required">1</attribute>
