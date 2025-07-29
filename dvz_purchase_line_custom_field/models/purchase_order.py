@@ -20,13 +20,25 @@ class PurchaseOrderLine(models.Model):
     )
 
 
+    # @api.onchange('vendor_product_mapping_id')
+    # def _onchange_vendor_product_mapping(self):
+    #     if self.vendor_product_mapping_id:
+    #         product_template = self.vendor_product_mapping_id.vendor_product_id
+    #         if product_template and product_template.product_variant_ids:
+    #             # Assign the first product variant to product_id
+    #             self.product_id = product_template.product_variant_ids[0]
+
     @api.onchange('vendor_product_mapping_id')
-    def _onchange_vendor_product_mapping(self):
+    def _onchange_vendor_product_mapping_id(self):
         if self.vendor_product_mapping_id:
+            # Get the product.product ID from the product.template
             product_template = self.vendor_product_mapping_id.vendor_product_id
-            if product_template and product_template.product_variant_ids:
-                # Assign the first product variant to product_id
-                self.product_id = product_template.product_variant_ids[0]
+            product = self.env['product.product'].search([
+                ('product_tmpl_id', '=', product_template.id)
+            ], limit=1)
+
+            if product:
+                self.product_id = product
 
 
 
