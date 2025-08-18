@@ -7,10 +7,25 @@
 from odoo import api, fields, models
 
 
+class Producttemplate(models.Model):
+    _inherit = "product.template"
+
+    # default_code = fields.Char(
+    product_default_code = fields.Char(
+        required=True,
+        default="/",
+        tracking=True,
+        help="Set to '/' and save if you want a new internal reference "
+        "to be proposed.",
+    )
+
+
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    default_code = fields.Char(
+    # default_code = fields.Char(
+    product_default_code = fields.Char(
+
         required=True,
         default="/",
         tracking=True,
@@ -22,7 +37,8 @@ class ProductProduct(models.Model):
     def create(self, vals_list):
         vals_list_updated = []
         for vals in vals_list:
-            if "default_code" not in vals or vals["default_code"] == "/":
+
+            if "product_default_code" not in vals or vals["product_default_code"] == "/":
                 categ_id = vals.get("categ_id", False)
                 template_id = vals.get("product_tmpl_id", False)
                 category = self.env["product.category"]
@@ -55,6 +71,9 @@ class ProductProduct(models.Model):
                 vals["default_code"] = ref
                 if len(product.product_tmpl_id.product_variant_ids) == 1:
                     product.product_tmpl_id.write({"default_code": ref})
+                vals["product_default_code"] = ref
+                if len(product.product_tmpl_id.product_variant_ids) == 1:
+                    product.product_tmpl_id.write({"product_default_code": ref})
                 super(ProductProduct, product).write(vals)
             return True
         return super().write(vals)
@@ -64,4 +83,6 @@ class ProductProduct(models.Model):
             default = {}
         if self.default_code and "default_code" not in default:
             default.update({"default_code": self.default_code + self.env._("-copy")})
+        if self.product_default_code and "product_default_code" not in default:
+            default.update({"product_default_code": self.product_default_code + self.env._("-copy")})
         return super().copy(default)
