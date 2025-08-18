@@ -10,7 +10,8 @@ from odoo import api, fields, models
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    default_code = fields.Char(
+    # default_code = fields.Char(
+    product_default_code = fields.Char(
         required=True,
         default="/",
         tracking=True,
@@ -22,7 +23,7 @@ class ProductProduct(models.Model):
     def create(self, vals_list):
         vals_list_updated = []
         for vals in vals_list:
-            if "default_code" not in vals or vals["default_code"] == "/":
+            if "product_default_code" not in vals or vals["product_default_code"] == "/":
                 categ_id = vals.get("categ_id", False)
                 template_id = vals.get("product_tmpl_id", False)
                 category = self.env["product.category"]
@@ -52,9 +53,9 @@ class ProductProduct(models.Model):
                 category = product_category_obj.browse(category_id)
                 sequence = self.env["ir.sequence"].get_category_sequence_id(category)
                 ref = sequence.next_by_id()
-                vals["default_code"] = ref
+                vals["product_default_code"] = ref
                 if len(product.product_tmpl_id.product_variant_ids) == 1:
-                    product.product_tmpl_id.write({"default_code": ref})
+                    product.product_tmpl_id.write({"product_default_code": ref})
                 super(ProductProduct, product).write(vals)
             return True
         return super().write(vals)
@@ -62,6 +63,6 @@ class ProductProduct(models.Model):
     def copy(self, default=None):
         if default is None:
             default = {}
-        if self.default_code and "default_code" not in default:
-            default.update({"default_code": self.default_code + self.env._("-copy")})
+        if self.default_code and "product_default_code" not in default:
+            default.update({"product_default_code": self.default_code + self.env._("-copy")})
         return super().copy(default)
