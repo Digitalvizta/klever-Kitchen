@@ -6,6 +6,18 @@
 
 from odoo import api, fields, models
 
+class Producttemplate(models.Model):
+    _inherit = "product.template"
+
+    # default_code = fields.Char(
+    product_default_code = fields.Char(
+        required=True,
+        default="/",
+        tracking=True,
+        help="Set to '/' and save if you want a new internal reference "
+        "to be proposed.",
+    )
+
 
 class ProductProduct(models.Model):
     _inherit = "product.product"
@@ -63,6 +75,6 @@ class ProductProduct(models.Model):
     def copy(self, default=None):
         if default is None:
             default = {}
-        if self.default_code and "product_default_code" not in default:
-            default.update({"product_default_code": self.default_code + self.env._("-copy")})
+        if self.product_default_code and "product_default_code" not in default:
+            default.update({"product_default_code": self.product_default_code + self.env._("-copy")})
         return super().copy(default)
