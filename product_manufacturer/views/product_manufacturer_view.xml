@@ -7,24 +7,40 @@
         <field name="arch" type="xml">
             <page name="general_information" position="after">
                 <page string="Manufacturer">
-                    <group name="manufacturer" string="Manufacturer">
-                        <group>
-                            <field
-                                    name="manufacturer_id"
-                                    context="{'res_partner_search_mode': 'supplier'}"
-                            />
+                    <group name="manufacturer" string="Manufacturer Details">
+
+                        <!-- Basic Manufacturer Info -->
+                        <group string="Basic Information">
+                            <field name="manufacturer_id"
+                                   context="{'res_partner_search_mode': 'supplier'}"/>
                             <field name="manufacturer_pname"/>
-                        </group>
-                        <group>
                             <field name="manufacturer_pref"/>
+                            <field name="manufacturer_sku"/>
+                        </group>
+
+                        <!-- Brand and URL -->
+                        <group string="Brand and URL">
+                            <field name="manufacturer_brand"/>
                             <field name="manufacturer_purl" widget="url"/>
                         </group>
-                    </group>
 
+                        <!-- Compliance / Storage -->
+                        <group string="Compliance and Storage">
+                            <field name="allgern_statement"/>
+                            <field name="storage_tempature"/>
+                        </group>
+
+                        <!-- Description -->
+                        <group string="Description">
+                            <field name="manufacturer_des"/>
+                        </group>
+
+                    </group>
                 </page>
             </page>
         </field>
     </record>
+
     <record
             id="product_product_view_form_easy_inherit_product_manufacturer"
             model="ir.ui.view"
