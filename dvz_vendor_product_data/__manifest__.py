@@ -1,34 +1,43 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "dvz_vendor_product_data",
+    'name': "Vendor Product Data",
 
-    'summary': "Short (1 phrase/line) summary of the module's purpose",
+    'summary': "Manage vendor-specific product data with pricing and availability",
 
     'description': """
-Long description of module's purpose
+This module allows you to maintain vendor-specific product information, including pricing,
+minimum quantities, delivery delays, product codes, and availability periods.
+It extends the product and vendor relationship for use in the purchasing workflow.
     """,
 
-    'author': "My Company",
-    'website': "https://www.yourcompany.com",
+    'author': "DigitalVizta",
+    'website': "https://www.digitalvizta.com",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'Uncategorized',
-    'version': '0.1',
+    'category': 'Purchases',
+    'version': '1.0',
 
-    # any module necessary for this one to work correctly
-    'depends': ['base'],
+    # Dependencies for proper integration with product and purchase modules
+    'depends': [
+        'base',
+        'purchase',
+        'product',
+    ],
 
-    # always loaded
+    # Always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'views/views.xml',
         'views/vendor_product_views.xml',
+        # 'security/ir.model.access.csv',  # Uncomment after adding access rights
     ],
-    # only loaded in demonstration mode
+
+    # Demo data (optional)
     'demo': [
         'demo/demo.xml',
     ],
-}
 
+    'license': 'LGPL-3',
+    'installable': True,
+    'application': False,
+    'auto_install': False,
+}
