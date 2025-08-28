@@ -1,0 +1,74 @@
+<odoo>
+    <!-- Tree (List) View -->
+    <record id="view_vendor_product_tree" model="ir.ui.view">
+        <field name="name">vendor.product.tree</field>
+        <field name="model">vendor.product</field>
+        <field name="arch" type="xml">
+            <list string="Vendor Products" multi_edit="1">
+                <field name="sequence" widget="handle"/>
+                <field name="product_id" optional="hide" readonly="1"
+                       column_invisible="context.get('product_template_invisible_variant', False)"
+                       groups="product.group_product_variant"
+                       domain="[('product_tmpl_id', '=', context.get('default_product_tmpl_id'))] if context.get('default_product_tmpl_id') else [('product_tmpl_id', '=', product_tmpl_id)]"/>
+                <field name="product_tmpl_id" string="Product" readonly="1" optional="hide"
+                       column_invisible="context.get('visible_product_tmpl_id', True)"/>
+                <field name="vendor_id" optional="show"/>
+                <field name="product_name" optional="show"/>
+                <field name="product_code" optional="show"/>
+                <field name="date_start" optional="hide"/>
+                <field name="date_end" optional="hide"/>
+                <field name="company_id" readonly="1" groups="base.group_multi_company"/>
+                <field name="min_qty" optional="hide"/>
+                <field name="product_uom" groups="uom.group_uom" optional="hide"/>
+                <field name="price" string="Price"/>
+                <field name="discount" optional="hide"/>
+                <field name="currency_id" groups="base.group_multi_currency"/>
+                <field name="delay" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_vendor_product_form" model="ir.ui.view">
+        <field name="name">vendor.product.form</field>
+        <field name="model">vendor.product</field>
+        <field name="arch" type="xml">
+            <form string="Vendor Product">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_tmpl_id"/>
+                            <field name="product_id"/>
+                            <field name="vendor_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="product_name"/>
+                            <field name="product_code"/>
+                            <field name="sequence"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Pricing Quantity">
+                            <group>
+                                <field name="min_qty"/>
+                                <field name="product_uom" groups="uom.group_uom"/>
+                                <field name="price"/>
+                                <field name="discount"/>
+                                <field name="currency_id" groups="base.group_multi_currency"/>
+                            </group>
+                        </page>
+                        <page string="Availability">
+                            <group>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <field name="delay"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
