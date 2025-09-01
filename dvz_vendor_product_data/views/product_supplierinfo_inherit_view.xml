@@ -23,8 +23,8 @@
         <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//field[@name='product_name']" position="after">
-                <field name="product_name_ref" string="Vendor Product"/>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="product_name_ref" string="Vendor Product" optional="show"/>
             </xpath>
 
         </field>
