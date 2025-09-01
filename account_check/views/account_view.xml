@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_check_journal_form" model="ir.ui.view">
+            <field name="name">account_check.account.journal.form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+
+                    <!-- Add payment_subtype field after type -->
+                    <xpath expr="//field[@name='type']" position="after">
+                        <field name="payment_subtype" invisible="type not in ('cash','bank')"/>
+                    </xpath>
+
+                    <!-- Add checkbook_ids tab inside notebook -->
+                    <xpath expr="//form/sheet/notebook" position="inside">
+                        <page string="Checkbooks" invisible="payment_subtype != 'issue_check'">
+                            <field name="checkbook_ids"/>
+<!--                                   context="{'default_company_id':company_id}"-->
+<!--                                   />-->
+<!--                                   required="payment_subtype == 'issue_check'"/>-->
+                        </page>
+                    </xpath>
+
+                    <!-- Add check-specific accounts -->
+                    <xpath expr="//field[@name='loss_account_id']" position="after">
+                        <field name="under_collection_acc_id"
+                               invisible="payment_subtype != 'third_check'"
+                               />
+<!--                               required="payment_subtype == 'third_check"/>-->
+                        <field name="handed_acc_id"
+                               invisible="payment_subtype != 'issue_check'"
+                              />
+<!--                               required="payment_subtype == 'issue_check'"/>-->
+                        <field name="bank_under_collection_acc_id"/>
+                        <field name="long_term_account"/>
+                    </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

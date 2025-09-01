@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+account_check_access_full,account_check_access_full,model_account_check,account.group_account_invoice,1,1,1,1
+account_checkbook_access_full,account_checkbook_access_full,model_account_checkbook,account.group_account_invoice,1,1,1,1
+account_check_access_global,account_check_access_global,model_account_check,,1,0,0,0
+account_check_action_access_global,account_check_action_access_global,model_account_check_action,,1,1,1,0
+access_account_check_dreject,access_account_check_dreject,model_account_check_dreject,,1,1,1,0
+access_return_invoice_residual,access_return_invoice_residual,model_return_invoice_residual,,1,0,0,0
+access_account_change_check,access_account_change_check,model_account_change_check,,1,1,1,0
+

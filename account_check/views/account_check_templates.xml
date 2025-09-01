@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="inherit_report_payment_receipt_document" inherit_id="account.report_payment_receipt_document">
+        <xpath expr="//table" position="replace">
+                            <div class="mb-4 mt-3">
+                    <div class="row">
+                        <div class="col-6" t-if="o.amount">
+                            Payment Type: <span t-field="o.payment_type" />
+                         </div>
+                        <div class="col-6">
+                         </div>
+                    </div>
+                </div>
+
+
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th><span>Bank</span></th>
+                            <th><span>Check Number</span></th>
+                            <th><span>Issue Date</span></th>
+                            <th><span>Due Date</span></th>
+                            <th ><span>Amount</span></th>
+                            <th ><span>State</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="checks" t-value="o.issued_check_ids"/>
+                        <t t-if="o.received_third_check_ids">
+                            <t t-set="checks" t-value="o.received_third_check_ids"/>
+                        </t>
+                        <t t-if="o.delivered_third_check_ids">
+                            <t t-set="checks" t-value="o.delivered_third_check_ids"/>
+                        </t>
+                        <t  t-foreach="checks" t-as="chk">
+                                <tr>
+                                    <td><span t-field="chk.bank_id"/></td>
+                                    <td><span t-field="chk.name"/></td>
+                                    <td><span t-field="chk.issue_date"/></td>
+                                    <td><span t-field="chk.payment_date"/></td>
+                                    <td><span t-field="chk.amount"/></td>
+                                    <td><span t-field="chk.state"/></td>
+                                </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+            <br/>
+            <br/>
+            <br/>
+
+            <div class="col-12 text-left">
+
+                <div class="col-4 text-center">
+                    <span>Received by</span>
+                </div>
+                <div class="col-4 text-left">
+                    <span>Name /.....................................................</span>
+                </div>
+                <div class="col-4 text-left">
+                    <span>Signature /..............................................</span>
+                </div>
+                <div class="col-4 text-left">
+                    <span>Id / ............................................................</span>
+                </div>
+                <div class="col-4 text-left">
+                    <span>Date / ......................................................</span>
+                </div>
+
+            </div>
+
+<!--                        <div class="col-12">-->
+<!--                            <div class="row">-->
+<!--                                <div class="col-4 text-center">-->
+<!--                                    <span>..............................................</span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+        </xpath>
+    </template>
+
+</odoo>

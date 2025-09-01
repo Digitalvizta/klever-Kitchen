@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_checkbook_search" model="ir.ui.view">
+            <field name="name">account.checkbook.search</field>
+            <field name="model">account.checkbook</field>
+            <field name="arch" type="xml">
+                <search string="Checkbooks">
+                    <field name="name"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="state"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_account_checkbook_tree" model="ir.ui.view">
+            <field name="name">account.checkbook.tree</field>
+            <field name="model">account.checkbook</field>
+            <field name="arch" type="xml">
+                <list string="Checkbooks" decoration-info="state == 'draft'" decoration-muted="state == 'used'">
+                    <field name="name"/>
+                    <field name="debit_journal_id"/>
+                    <field name="range_from"/>
+                    <field name="range_to"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_account_checkbook_form" model="ir.ui.view">
+            <field name="name">account.checkbook.form</field>
+            <field name="model">account.checkbook</field>
+            <field name="arch" type="xml">
+                <form string="Checkbooks"> 
+                    <header string="Checkbooks">
+                        <button name="set_active" type="object" string="In Use"  invisible="state not in ('draft')"/>
+                        <button name="set_used" type="object" string="Used" invisible="state not in ('active')"/>
+                        <button name="set_draft" type="object" string="To Draft" invisible="state not in ('used')"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,active,used" statusbar_colors='{"active":"blue"}'/>
+                    </header>
+                    <sheet string="Checkbooks">
+                        <group>
+                            <group>
+                                <field name="name" readonly="state != 'draft'" force_save="True"/>
+<!--                                <field name="issue_check_subtype" readonly="state != 'draft'" force_save="True"/>-->
+                                <field name="issue_check_subtype" readonly="state != 'draft'" force_save="True"/>
+                                <field name="debit_journal_id" readonly="state != 'draft'" force_save="True"/>
+<!--                                <field name="debit_journal_id" domain="[('company_id', '=', company_id),('type', '=', 'bank')]" context="{'default_company_id': company_id, 'default_type': 'bank'}"/>-->
+<!--                                <field name="debit_journal_id" readonly="state != 'draft'"/>-->
+<!--                                <field name="debit_journal_id" domain="[('company_id', '=', company_id),('type', '=', 'bank')]" context="{'default_company_id': company_id, 'default_type': 'bank'}"/>-->
+                                <field name="company_id" />
+                            </group>
+                            <group>  
+                                <field name="range_from" readonly="state != 'draft'"/>
+                                <field name="range_to" readonly="state != 'draft'"/>
+                                <field name="next_check_number" readonly="state != 'draft'"/>
+                                <field name="padding" readonly="state != 'draft'"/>
+                                <field name="number_prefix" force_save="True"/>
+                            </group>
+                        </group>
+                    </sheet>
+                      <chatter/>
+<!--                    <div class="oe_chatter">-->
+<!--                        <field name="message_follower_ids" widget="mail_followers"/>-->
+<!--                        <field name="message_ids" widget="mail_thread"/>-->
+<!--                    </div>                     -->
+                </form>
+            </field>
+        </record>
+ 
+    </data>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_adjust_long_term_checks" model="ir.cron">
+        <field name="name">Create Journal Entry to adjust Long term checks</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+<!--        <field name="numbercall">-1</field>-->
+        <field name="nextcall"
+               eval="(DateTime.now().replace(month=12, day=31) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+<!--        <field name="doall" eval="False"/>-->
+        <field name="model_id" ref="model_account_check"/>
+        <field name="code">model._adjust_longterm_checks()</field>
+        <field name="state">code</field>
+    </record>
+
+</odoo>

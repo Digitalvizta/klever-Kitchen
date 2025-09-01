@@ -13,3 +13,9 @@ class ProductSupplierinfo(models.Model):
     def _onchange_product_name_ref(self):
         if self.product_name_ref:
             self.product_name = self.product_name_ref.product_name
+            self.product_code = self.product_name_ref.product_code
+            self.min_qty = self.product_name_ref.min_qty
+            self.price = self.product_name_ref.price
+            self.discount = self.product_name_ref.discount
+
+

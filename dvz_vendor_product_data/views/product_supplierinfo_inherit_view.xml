@@ -15,4 +15,20 @@
             </xpath>
         </field>
     </record>
+
+
+    <record id="view_supplierinfo_tree_custom" model="ir.ui.view">
+        <field name="name">product.product_supplierinfo_tree_view.inherit.custom</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='product_name']" position="after">
+                <field name="product_name_ref" string="Vendor Product"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
 </odoo>

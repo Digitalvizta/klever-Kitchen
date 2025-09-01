@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="account_check_dreject_form_view" model="ir.ui.view">
+            <field name="name">account.check.dreject.wizard.form</field>
+            <field name="model">account.check.dreject</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <h1>Deposited Check Reject</h1>
+                    </header>
+                    <p>Remember to validate invoices after confirmation.</p>
+                    <field name="type" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <group col="2">
+                        <field name="reject_date" required="1" widget="date"/>
+                        <field name="has_expense"/>
+                        <field name="expense_account" invisible="has_expense == False" required="has_expense == True" />
+<!--                        <field name="expense_account" invisible="has_expense == False" required="has_expense == True" domain="[('company_id', '=', company_id), ('internal_type', 'in', ['other'])]"/>-->
+                        <field name="expense_amount" invisible="has_expense == False" required="has_expense == True"/>
+                        <field name="expense_to_customer" invisible="type != 'third_check' or has_expense == False"/>
+                    </group>
+                    <footer>
+                        <button name="action_dreject" string="Confirm" type="object" class="btn-primary"/>
+                        <button string="Cancel" special="cancel" class="btn-secondary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_check_rejected" model="ir.actions.act_window">
+            <field name="name">Check Rejected</field>
+            <field name="res_model">account.check.dreject</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>
