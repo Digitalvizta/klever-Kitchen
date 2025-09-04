@@ -2,3 +2,4 @@
 
 from . import vendor_product
 from . import product_supplierinfo_inherit
+from . import purchase_order_line

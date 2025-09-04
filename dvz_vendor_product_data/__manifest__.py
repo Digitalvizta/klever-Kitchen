@@ -29,6 +29,7 @@ It extends the product and vendor relationship for use in the purchasing workflo
         'views/views.xml',
         'views/vendor_product_views.xml',
         'views/product_supplierinfo_inherit_view.xml',
+        'views/purchase_order_views.xml',
         # 'security/ir.model.access.csv',  # Uncomment after adding access rights
     ],
 
