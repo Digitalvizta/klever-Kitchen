@@ -6,11 +6,12 @@
         <field name="inherit_id" ref="product.product_template_only_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='general_information']" position="after">
-                <page string="Generic Product Setup">
+                <page string="Generic Product Setup" invisible="not purchase_ok">
                     <group >
                         <field name="physical_salts_ids" widget="one2many">
                             <list editable="bottom">
                                 <field name="substitute_product_id"/>
+                                <field name="onhand_qty"/>
                             </list>
                         </field>
                     </group>

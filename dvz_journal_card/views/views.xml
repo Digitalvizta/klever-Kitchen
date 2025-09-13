@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="dvz_journal_card.list">
+      <field name="name">dvz_journal_card list</field>
+      <field name="model">dvz_journal_card.dvz_journal_card</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </list>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="dvz_journal_card.action_window">
+      <field name="name">dvz_journal_card window</field>
+      <field name="res_model">dvz_journal_card.dvz_journal_card</field>
+      <field name="view_mode">list,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="dvz_journal_card.action_server">
+      <field name="name">dvz_journal_card server</field>
+      <field name="model_id" ref="model_dvz_journal_card_dvz_journal_card"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "list,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="dvz_journal_card" id="dvz_journal_card.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="dvz_journal_card.menu_1" parent="dvz_journal_card.menu_root"/>
+    <menuitem name="Menu 2" id="dvz_journal_card.menu_2" parent="dvz_journal_card.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="dvz_journal_card.menu_1_list" parent="dvz_journal_card.menu_1"
+              action="dvz_journal_card.action_window"/>
+    <menuitem name="Server to list" id="dvz_journal_card" parent="dvz_journal_card.menu_2"
+              action="dvz_journal_card.action_server"/>
+-->
+  </data>
+</odoo>
