@@ -6,8 +6,8 @@
         <field name="inherit_id" ref="product.product_template_only_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='general_information']" position="after">
-                <page string="Generic Product Setup" invisible="not purchase_ok">
-                    <group >
+                <page string="Generic Product Setup" invisible="purchase_ok or sale_ok">
+                    <group>
                         <field name="physical_salts_ids" widget="one2many">
                             <list editable="bottom">
                                 <field name="substitute_product_id"/>
@@ -16,6 +16,22 @@
                         </field>
                     </group>
                 </page>
+
+            </xpath>
+            <xpath expr="//field[@name='type']" position="after">
+                <field name="product_category_type"/>
+                <field name="auto_sequence_code" readonly="1" force_save="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_product_template_tree_inherit_sequence" model="ir.ui.view">
+        <field name="name">product.template.tree.inherit.sequence</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="auto_sequence_code" string="Code"/>
             </xpath>
         </field>
     </record>
