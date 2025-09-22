@@ -133,7 +133,7 @@
             <xpath expr="//page[@name='general_information']" position="inside">
                 <group string="Additional General Info">
                     <field name="description"/>
-<!--                    <field name="tag_ids" widget="many2many_tags"/>-->
+                    <field name="product_tag_ids" widget="many2many_tags"/>
                     <field name="information_owner_gln"/>
                     <field name="ingredients"/>
                     <field name="contains"/>
