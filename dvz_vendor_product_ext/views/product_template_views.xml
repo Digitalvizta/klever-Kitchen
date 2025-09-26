@@ -1,79 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="view_product_template_form_inherit_vendor_fields" model="ir.ui.view">
-        <field name="name">product.template.form.inherit.vendor.fields</field>
+    <record id="view_product_template_form_inherit_custom" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.custom</field>
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_only_form_view"/>
         <field name="arch" type="xml">
 
             <!-- General -->
             <xpath expr="//sheet/notebook/page[@name='general_information']" position="inside">
-                <group string="Additional Info">
-                    <group>
-                        <field name="description"/>
-                        <field name="sub_category_id"/>
-                    </group>
-                    <group>
-<!--                        <field name="tag_ids" widget="many2many_tags"/>-->
-                    </group>
+                <group string="Additional General Info">
+                    <field name="description"/>
+<!--                    <field name="tag_ids" widget="many2many_tags"/>-->
+                    <field name="shelf_life_days"/>
                 </group>
             </xpath>
 
-
-            <!-- Vendor Tab -->
-            <xpath expr="//sheet/notebook" position="inside">
-                <page string="Vendor" invisible="not purchase_ok">
-                    <group string="Vendor Packaging">
-                        <group>
-                            <field name="vendor_sku"/>
-                            <field name="vendor_pack_size"/>
-                        </group>
-                        <group>
-                            <field name="vendor_pack_size_uom"/>
-                        </group>
-                    </group>
-
-                    <group string="Palletization Details">
-                        <group>
-                            <field name="layers_per_pallet"/>
-                            <field name="items_per_pallet_layer"/>
-                        </group>
-                        <group>
-                            <field name="delivery_lead_time"/>
-                        </group>
-                    </group>
-                </page>
+            <!-- Purchase (move vendor fields here) -->
+            <xpath expr="//sheet/notebook/page[@name='purchase']" position="inside">
+                <group string="Vendor Info">
+                    <field name="vendor_id"/>
+                    <field name="vendor_product_name"/>
+                    <field name="vendor_sku"/>
+                    <field name="vendor_delivery_lead_time"/>
+                    <field name="purchase_price"/>
+                </group>
             </xpath>
-
-            <!-- Inventory -->
-            <!--            <xpath expr="//sheet/notebook" position="inside">-->
-            <!--                <page string="Inventory Extension">-->
-            <!--                    <group string="Inventory Info">-->
-            <!--                        <field name="inventory_location"/>-->
-            <!--                    </group>-->
-            <!--                </page>-->
-            <!--            </xpath>-->
 
             <!-- Manufacturer Tab -->
             <xpath expr="//sheet/notebook" position="inside">
-                <page string="Manufacturer" invisible="not purchase_ok">
-
-                    <!-- Composition & Shelf Life -->
-                    <group string="Product Composition">
+                <page string="Manufacturer">
+                    <group string="Basic Information">
                         <group>
-                            <field name="ingredients"/>
-                            <field name="storage_location"/>
+                            <field name="manufacturer_id" context="{'res_partner_search_mode': 'supplier'}"/>
+                            <field name="manufacturer_pname"/>
                         </group>
                         <group>
-                            <field name="shelf_life"/>
-                            <field name="lot_number"/>
+                            <field name="manufacturer_pref"/>
+                            <field name="manufacturer_sku"/>
+                            <field name="information_owner_gln"/>
                         </group>
                         <group>
-                            <field name="expiration_date"/>
+                            <field name="manufacturer_brand"/>
+                            <field name="manufacturer_purl" widget="url"/>
+                        </group>
+                        <group>
+                            <field name="previous_manufacturer_code"/>
+                            <field name="trade_item_date_on_pack_type"/>
                         </group>
                     </group>
 
-                    <!-- Documents -->
+                    <group string="Composition  Shelf Life">
+                        <field name="ingredients"/>
+<!--                        <field name="contains_ids" widget="many2many_tags"/>-->
+<!--                        <field name="fish_type" attrs="{'invisible': [('contains_ids','not in',['Fish'])]}"/>-->
+<!--                        <field name="crustacean_type" attrs="{'invisible': [('contains_ids','not in',['Crustacean Shellfish'])]}"/>-->
+<!--                        <field name="tree_nut_type" attrs="{'invisible': [('contains_ids','not in',['Tree Nuts'])]}"/>-->
+                    </group>
+
                     <group string="Manufacturer Documents">
                         <group>
                             <field name="specification_sheet" filename="specification_sheet_fname"/>
@@ -83,90 +66,34 @@
                             <field name="allergen_statement" filename="allergen_statement_fname"/>
                             <field name="coa_document" filename="coa_document_fname"/>
                         </group>
-                    </group>
-                    <separator string="Manufacturer Details"/>
-                    <!-- Manufacturer Details -->
-                    <group name="manufacturer" string="Basic Information">
-
-                        <!-- Basic Manufacturer Info -->
                         <group>
-                            <field name="manufacturer_id"
-                                   context="{'res_partner_search_mode': 'supplier'}"/>
-                            <field name="manufacturer_pname"/>
-                        </group>
-                        <group>
-                            <field name="manufacturer_pref"/>
-                            <field name="manufacturer_sku"/>
-                        </group>
-
-
-                    </group>
-                    <group>
-
-                        <!-- Brand and URL -->
-                        <group string="Brand and URL">
-                            <field name="manufacturer_brand"/>
-                            <field name="manufacturer_purl" widget="url"/>
-                        </group>
-
-                        <!-- Compliance and Storage -->
-                        <group string="Compliance and Storage">
-                            <field name="storage_tempature"/>
+                            <field name="barcode_image" filename="barcode_image_fname"/>
+                            <field name="label_image" filename="label_image_fname"/>
                         </group>
                     </group>
-
-                    <!-- Description -->
-                    <group string="Manufacturer Notes">
-                        <field name="manufacturer_des"/>
-                    </group>
-
                 </page>
             </xpath>
 
-
-            <!-- Change Category label to Sub-Category -->
-            <xpath expr="//field[@name='categ_id']" position="attributes">
-                <attribute name="string">Sub-Category</attribute>
-            </xpath>
-
-            <!-- Insert new fields inside the existing General Info page -->
-            <xpath expr="//page[@name='general_information']" position="inside">
-                <group string="Additional General Info">
-                    <field name="description"/>
-                    <field name="product_tag_ids" widget="many2many_tags"/>
-                    <field name="information_owner_gln"/>
-                    <field name="ingredients"/>
-                    <field name="contains"/>
-                    <field name="allergen_statement_text"/>
-                    <field name="shelf_life_days"/>
-                </group>
-
-                <group string="Attachments">
-                    <field name="attachment_ids" nolabel="1">
-                        <list>
-                            <field name="name"/>
-<!--                            <field name="mimetype"/>-->
-                            <field name="create_date"/>
-                        </list>
-                    </field>
-                </group>
-            </xpath>
-
-            <!-- Add new Marketing tab -->
-            <xpath expr="//notebook" position="inside">
+            <!-- Marketing Tab -->
+            <xpath expr="//sheet/notebook" position="inside">
                 <page string="Marketing">
                     <group>
                         <field name="brand_name"/>
                         <field name="marketing_message"/>
-                        <field name="basic_preparation"/>
+                        <field name="basic_preparation_text"/>
                         <field name="serving_information"/>
+                    </group>
+                    <group string="Marketing Documents">
+                        <field name="pos_image" filename="pos_image_fname"/>
+                        <field name="formulation_statement_1" filename="formulation_statement_1_fname"/>
+                        <field name="formulation_statement_2" filename="formulation_statement_2_fname"/>
                     </group>
                 </page>
             </xpath>
 
-            <!-- Add new Inventory & Packaging tab -->
-            <xpath expr="//notebook" position="inside">
-                <page string="Inventory  Packaging">
+            <!-- Packaging Attributes (renamed Inventory Packaging) -->
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Packaging Attributes">
                     <group>
                         <field name="inventory_location"/>
                     </group>
@@ -182,20 +109,30 @@
                         <field name="net_weight_uom"/>
                         <field name="box_type"/>
                     </group>
-                    <group string="Dimensions">
-                        <field name="package_height_in"/>
-                        <field name="package_depth_in"/>
-                        <field name="package_width_in"/>
+                    <group string="Dimensions (Fractions allowed)">
+                        <field name="package_height"/>
+                        <field name="package_depth"/>
+                        <field name="package_width"/>
                         <field name="package_weight"/>
                         <field name="package_weight_uom"/>
+                        <field name="package_cubic_feet" readonly="1"/>
                     </group>
                     <group string="Pallet">
                         <field name="layers_per_pallet"/>
                         <field name="items_per_layer"/>
-                        <field name="pallet_height_in"/>
+                        <field name="pallet_height"/>
                     </group>
                 </page>
             </xpath>
+
+            <!-- Sales Tab: show cost & sales price for sold products -->
+            <xpath expr="//sheet/notebook/page[@name='sales']" position="inside">
+                <group string="Pricing">
+                    <field name="standard_price"/>
+                    <field name="list_price"/>
+                </group>
+            </xpath>
+
         </field>
     </record>
 </odoo>

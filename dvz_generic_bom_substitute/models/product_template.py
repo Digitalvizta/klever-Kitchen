@@ -20,9 +20,10 @@ class ProductTemplate(models.Model):
         ('sfg', 'SFG'),
     ], string="Product Category Type", required=True)
 
-    auto_sequence_code = fields.Char(string="Auto Sequence Code", readonly=True, copy=False)
+    auto_sequence_code = fields.Char(string="Auto Sequence Code", readonly=False, copy=False)
 
     @api.onchange('product_category_type')
     def _onchange_product_category_type(self):
         if self.product_category_type:
-            self.auto_sequence_code = self.env['ir.sequence'].next_by_code(f'{self.product_category_type}_sequence')
+            auto_sequence_code = self.env['ir.sequence'].next_by_code(f'{self.product_category_type}_sequence')
+            self.auto_sequence_code = auto_sequence_code

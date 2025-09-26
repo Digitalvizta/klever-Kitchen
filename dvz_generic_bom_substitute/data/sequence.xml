@@ -6,7 +6,7 @@
             <field name="name">MFG Product Sequence</field>
             <field name="code">mfg_sequence</field>
             <field name="prefix">MFG-</field>
-            <field name="padding">4</field>
+            <field name="padding">7</field>
             <field name="number_next">1</field>
         </record>
 
@@ -15,7 +15,7 @@
             <field name="name">FG Product Sequence</field>
             <field name="code">fg_sequence</field>
             <field name="prefix">FG-</field>
-            <field name="padding">4</field>
+            <field name="padding">7</field>
             <field name="number_next">1</field>
         </record>
 
@@ -24,7 +24,7 @@
             <field name="name">VD Product Sequence</field>
             <field name="code">vd_sequence</field>
             <field name="prefix">VD-</field>
-            <field name="padding">4</field>
+            <field name="padding">7</field>
             <field name="number_next">1</field>
         </record>
 
@@ -33,7 +33,7 @@
             <field name="name">RM Product Sequence</field>
             <field name="code">rm_sequence</field>
             <field name="prefix">RM-</field>
-            <field name="padding">4</field>
+            <field name="padding">7</field>
             <field name="number_next">1</field>
         </record>
 
@@ -42,7 +42,7 @@
             <field name="name">SFG Product Sequence</field>
             <field name="code">sfg_sequence</field>
             <field name="prefix">SFG-</field>
-            <field name="padding">4</field>
+            <field name="padding">7</field>
             <field name="number_next">1</field>
         </record>
 
