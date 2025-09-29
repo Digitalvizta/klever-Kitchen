@@ -60,6 +60,7 @@ class ProductTemplate(models.Model):
         string='Tags'
     )
 
+
     information_owner_gln = fields.Char(
         string='Information Owner GLN',
         size=15,
@@ -99,6 +100,8 @@ class ProductTemplate(models.Model):
     # ---------------------------
     # MANUFACTURER
     # ---------------------------
+    product_category_type = fields.Many2one('product.category.type', string="Product Category type")
+    auto_code = fields.Char(string="Auto Sequence Code", readonly=False, copy=False)
     manufacturer_id = fields.Many2one('res.partner', string="Manufacturer")
     manufacturer_pname = fields.Char(string="Manufacturer Product Name")
     manufacturer_pref = fields.Char(string="Manufacturer Bar Code")
@@ -304,6 +307,26 @@ class ProductTemplate(models.Model):
         if 'Tree Nuts' not in names:
             self.tree_nut_type = False
 
+    # Define the locked fields after product creation
+    _LOCKED_FIELDS = [
+        'type',  # Product Type
+        'product_category_type',  # Product Category Type (your custom field)
+        'auto_sequence_code',  # Auto Sequence Code
+        'barcode',  # Bar Code
+    ]
+
+    def write(self, vals):
+        if any(field in vals for field in self._LOCKED_FIELDS):
+            locked_attempts = [f for f in self._LOCKED_FIELDS if f in vals]
+            for record in self:
+                if record.id:  # only block updates on existing records
+                    raise ValidationError(_(
+                        "The following fields cannot be changed after the product is created: %s"
+                    ) % ', '.join(locked_attempts))
+
+        # ✅ call Odoo's parent class, not yourself
+        return super().write(vals)
+
     # def write(self, vals):
     #     if any(field in vals for field in self._LOCKED_AFTER_CREATE):
     #         locked_fields_attempt = [f for f in self._LOCKED_AFTER_CREATE if f in vals]
@@ -377,6 +400,18 @@ INVENTORY_LOCATIONS = [
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
+
+    type = fields.Selection(
+        string="Product Type",
+        help="Goods are tangible materials and merchandise you provide.\n"
+             "A service is a non-material product you provide.",
+        selection=[
+            ('consu', "Goods"),
+            ('service', "Service"),
+        ],
+        required=True,
+        default='consu',
+    )
 
     # General
     description = fields.Text(string="Description")
@@ -540,3 +575,30 @@ class ProductTemplate(models.Model):
         for rec in self:
             if rec.shelf_life_days and (rec.shelf_life_days < 0 or rec.shelf_life_days > 999):
                 raise ValidationError("Shelf life must be 0-999 days.")
+
+    @api.onchange("product_category_type")
+    def _onchange_product_category_type(self):
+        if self.product_category_type:
+            prefix = self.product_category_type.name.strip().upper()  # e.g. FG
+
+            # find last product with same category type
+            last = self.env["product.template"].search(
+                [("product_category_type", "=", self.product_category_type.id),
+                 ("auto_code", "like", f"{prefix}%")],
+                order="auto_code desc",
+                limit=1
+            )
+
+            if last and last.auto_code and last.auto_code.startswith(prefix):
+                try:
+                    last_number = int(last.auto_code.replace(prefix, "") or 0)
+                except ValueError:
+                    last_number = 0
+            else:
+                last_number = 0
+
+            new_number = last_number + 1
+            self.auto_code = f"{prefix}{str(new_number).zfill(4)}"  # e.g. FG0001
+        else:
+            self.auto_code = False
+

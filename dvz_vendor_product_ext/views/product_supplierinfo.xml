@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="view_product_supplierinfo_tree_inherit" model="ir.ui.view">
+            <field name="name">product.supplierinfo.tree.inherit</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+            <field name="arch" type="xml">
+
+                <!-- Vendor -->
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">Vendor</attribute>
+                    <attribute name="readonly">0</attribute>
+                </xpath>
+
+                <!-- Vendor Product -->
+                <xpath expr="//field[@name='product_name']" position="attributes">
+                    <attribute name="string">Vendor Product</attribute>
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+
+                <!-- Vendor SKU -->
+                <xpath expr="//field[@name='product_code']" position="attributes">
+                    <attribute name="string">Vendor SKU</attribute>
+                    <attribute name="optional">show</attribute>
+                </xpath>
+
+                <!-- Cost -->
+                <xpath expr="//field[@name='price']" position="attributes">
+                    <attribute name="string">Cost</attribute>
+                    <attribute name="optional">show</attribute>
+                </xpath>
+
+                <!-- Quantity -->
+                <xpath expr="//field[@name='min_qty']" position="attributes">
+                    <attribute name="string">Quantity</attribute>
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+
+                <!-- Currency -->
+                <xpath expr="//field[@name='currency_id']" position="attributes">
+                    <attribute name="string">Price</attribute>
+                    <attribute name="optional">show</attribute>
+                </xpath>
+
+                <!-- Hide all the rest -->
+                <xpath expr="//field[@name='product_name']" position="attributes">
+                        <attribute name="column_invisible">1</attribute>
+                </xpath>
+<!--                <xpath expr="//field[@name='sequence']" position="attributes">-->
+<!--                    <attribute name="column_invisible">1</attribute>-->
+<!--                </xpath>-->
+                <xpath expr="//field[@name='product_id']" position="attributes">
+                    <attribute name="column_invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='product_tmpl_id']" position="attributes">
+                    <attribute name="column_invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_start']" position="attributes">
+                    <attribute name="column_invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_end']" position="attributes">
+                    <attribute name="column_invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="attributes">
+                    <attribute name="column_invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='product_uom']" position="attributes">
+                    <attribute name="column_invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='discount']" position="attributes">
+                    <attribute name="column_invisible">1</attribute>
+                </xpath>
+<!--                <xpath expr="//field[@name='delay']" position="attributes">-->
+<!--                    <attribute name="column_invisible">1</attribute>-->
+<!--                </xpath>-->
+
+            </field>
+        </record>
+    </data>
+</odoo>

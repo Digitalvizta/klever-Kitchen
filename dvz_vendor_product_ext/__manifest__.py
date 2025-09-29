@@ -31,7 +31,10 @@ Key Features:
     'version': '1.0',
     'depends': ['stock'],
     'data': [
+        'security/ir.model.access.csv',
         'views/product_template_views.xml',
+        'views/product_category_type_view.xml',
+        'views/product_supplierinfo.xml',
     ],
     'installable': True,
     'application': False,
