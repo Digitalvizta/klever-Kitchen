@@ -10,52 +10,13 @@
             <xpath expr="//sheet/notebook/page[@name='general_information']//field[@name='default_code']"
                    position="after">
                 <field name="product_tag_ids" widget="many2many_tags"/>
+                     <field name="shelf_life_days"/>
 
             </xpath>
-            <xpath expr="//sheet/notebook/page[@name='general_information']" position="inside">
-                <group string="Additional General Info">
-                    <field name="description"/>
-                    <!--                    <field name="tag_ids" widget="many2many_tags"/>-->
-                    <field name="shelf_life_days"/>
-                </group>
-            </xpath>
 
-            <!-- Remove Sale Price from General Information -->
-            <!--            <xpath expr="//field[@name='list_price']" position="replace">-->
-            <!--            </xpath>-->
-
-            <!-- Add Sale Price to Sales tab -->
-            <!--            <xpath expr="//page[@name='sales']" position="inside">-->
-            <!--                <group>-->
-            <!--                    <field name="list_price"/>-->
-            <!--                </group>-->
-            <!--            </xpath>-->
-
-
-            <xpath expr="//sheet/notebook/page[@name='purchase']/group[@name='purchase']" position="before">
-
-
-                <!-- Vendor Information -->
-<!--                <group string="Vendor Information">-->
-<!--                    <group>-->
-<!--                        <field name="vendor_id"/>-->
-<!--                        <field name="vendor_product_name"/>-->
-<!--                    </group>-->
-<!--                    <group>-->
-<!--                        <field name="vendor_sku"/>-->
-<!--                    </group>-->
-<!--                </group>-->
-                <!-- Delivery Details -->
-<!--                <group>-->
-<!--                    <group string="Delivery Details">-->
-<!--                        <field name="vendor_delivery_lead_time"/>-->
-<!--                    </group>-->
-<!--                    <group string="Pricing">-->
-<!--                        <field name="purchase_price"/>-->
-<!--                    </group>-->
-<!--                </group>-->
-
-
+            <!-- Add domain dynamically -->
+            <xpath expr="//field[@name='categ_id']" position="attributes">
+                <attribute name="domain">[('id', 'in', allowed_category_ids)]</attribute>
             </xpath>
 
             <!-- Manufacturer Tab -->
@@ -85,10 +46,6 @@
                     <group string="Composition  Shelf Life">
                         <field name="ingredients"/>
                         <field name="contains"/>
-                        <!--                        <field name="contains_ids" widget="many2many_tags"/>-->
-                        <!--                        <field name="fish_type" attrs="{'invisible': [('contains_ids','not in',['Fish'])]}"/>-->
-                        <!--                        <field name="crustacean_type" attrs="{'invisible': [('contains_ids','not in',['Crustacean Shellfish'])]}"/>-->
-                        <!--                        <field name="tree_nut_type" attrs="{'invisible': [('contains_ids','not in',['Tree Nuts'])]}"/>-->
                     </group>
 
                     <group string="Manufacturer Documents">
@@ -159,11 +116,6 @@
                 </page>
             </xpath>
 
-            <!-- Remove both fields from General Info -->
-<!--            <xpath expr="//page[@name='general_information']//field[@name='list_price']" position="replace"/>-->
-<!--            <xpath expr="//page[@name='general_information']//field[@name='standard_price']" position="replace"/>-->
-
-
             <!-- Sales Tab: show cost & sales price for sold products -->
             <xpath expr="//sheet/notebook/page[@name='sales']" position="inside">
                 <group string="Pricing">
@@ -179,7 +131,7 @@
             </xpath>
 
             <xpath expr="//field[@name='type']" position="after">
-                <field name="product_category_type"/>
+                <field name="product_category_type" required="1"/>
                 <field name="auto_code" readonly="1" force_save="1"/>
             </xpath>
 

@@ -1,0 +1,16 @@
+<odoo>
+    <record id="view_product_category_form_inherit_main_category" model="ir.ui.view">
+        <field name="name">product.category.form.inherit.main.category</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+
+            <!-- Add main_category_id inside group "first" -->
+            <xpath expr="//group[@name='first']" position="inside">
+
+                <field name="main_category_id" class="oe_inline"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
