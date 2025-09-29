@@ -1,10 +1,10 @@
 <odoo>
     <!-- Menu under Products/Configuration -->
-    <menuitem id="menu_product_category_type_root"
-              name="Category Types"
-              parent="stock.menu_stock_config_settings"
-              sequence="20"
-              action="action_product_category_type"/>
+<!--    <menuitem id="menu_product_category_type_root"-->
+<!--              name="Category Types"-->
+<!--              parent="stock.menu_stock_config_settings"-->
+<!--              sequence="20"-->
+<!--              action="action_product_category_type"/>-->
 
     <!-- Action for Product Category Types -->
     <record id="action_product_category_type" model="ir.actions.act_window">
