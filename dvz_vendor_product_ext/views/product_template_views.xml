@@ -125,7 +125,7 @@
                 <group string="Pricing">
                     <field name="standard_price"/>
                     <field name="list_price"/>
-                    <field name="taxes_id"/>
+                    <field name="taxes_id" widget="many2many_tags"/>
                 </group>
             </xpath>
 
