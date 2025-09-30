@@ -35,9 +35,6 @@ BASIC_PREP_OPTIONS = [
     ('use_by', 'Use By Date'),
 ]
 
-
-
-
 BOX_TYPE_SELECTION = [
     ('retail_box', 'Retail Box 9 7/8 x 9 7/8 x 6 1/8 (2/5 LB)'),
     ('fsh_box', 'FSH Box 12 5/8 x 10 7/16 x 6 5/8 (2/10 LB & 2 Trays)'),
@@ -85,6 +82,8 @@ INVENTORY_LOCATIONS = [
     ('semi_finished_goods_1','Semi-Finished Goods Location 1'),
 ]
 
+
+
 class ProductAllergen(models.Model):
     _name = 'product.allergen'
     _description = 'Product Allergen (simple lookup)'
@@ -95,6 +94,20 @@ class ProductAllergen(models.Model):
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
+
+    _LOCKED_AFTER_CREATE = [
+        'sale_ok', 'purchase_ok', 'type', 'categ_id', 'product_category_type', 'barcode'
+    ]
+
+    def write(self, vals):
+        if any(field in vals for field in self._LOCKED_AFTER_CREATE):
+            locked_fields_attempt = [f for f in self._LOCKED_AFTER_CREATE if f in vals]
+            if self.filtered(lambda r: r.id):
+                raise ValidationError(_(
+                    "The following fields cannot be changed after creation: %s"
+                ) % (', '.join(locked_fields_attempt)))
+
+        return super(ProductTemplate, self).write(vals)
 
     # Manufacturer
     manufacturer_description = fields.Text(string="Manufacturer Description")
