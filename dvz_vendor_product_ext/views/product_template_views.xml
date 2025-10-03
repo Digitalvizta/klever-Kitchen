@@ -10,17 +10,18 @@
             <xpath expr="//sheet/notebook/page[@name='general_information']//field[@name='default_code']"
                    position="after">
                 <field name="product_tag_ids" widget="many2many_tags"/>
-                     <field name="shelf_life_days"/>
+                <field name="shelf_life_days"/>
 
             </xpath>
 
             <!-- Add domain dynamically -->
             <xpath expr="//field[@name='categ_id']" position="attributes">
                 <attribute name="domain">[('id', 'in', allowed_category_ids)]</attribute>
+                <!--                            <attribute name="domain">[('id', '=', parent_id)]</attribute>-->
             </xpath>
 
             <xpath expr="//field[@name='categ_id']" position="attributes">
-                   <attribute name="string">Sub Category</attribute>
+                <attribute name="string">Parent Category</attribute>
             </xpath>
 
             <!-- Manufacturer Tab -->
@@ -136,15 +137,19 @@
 
             <xpath expr="//field[@name='type']" position="after">
                 <field name="product_category_type" required="1"/>
+                <field name="sub_category_type"
+                       domain="[('parent_id', '=', categ_id)]"
+                       required="1"/><!--                <field name="parent_category_type"-->
+                <!--                       required="1"-->
+                <!--                       domain="[('id', '=', parent_id)]"/>-->
+
                 <field name="auto_code" readonly="1" force_save="1"/>
             </xpath>
 
-             <!-- Change label of Internal Notes -->
+            <!-- Change label of Internal Notes -->
             <xpath expr="//field[@name='description']" position="attributes">
                 <attribute name="string">Description</attribute>
             </xpath>
-
-
 
 
         </field>

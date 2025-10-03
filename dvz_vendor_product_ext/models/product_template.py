@@ -131,11 +131,16 @@ class ProductTemplate(models.Model):
     package_depth = fields.Char(string="Package Depth (IN)")
     package_width = fields.Char(string="Package Width (IN)")
     pallet_height = fields.Char(string="Pallet Height (IN)")
+
     package_cubic_feet = fields.Float(
         string="Package Cubic Feet",
-        compute="_compute_package_cubic_feet",
         store=True
     )
+    # package_cubic_feet = fields.Float(
+    #     string="Package Cubic Feet",
+    #     compute="_compute_package_cubic_feet",
+    #     store=True
+    # )
 
     # Marketing
     pos_image = fields.Binary(string="POS Image")
@@ -251,8 +256,20 @@ class ProductTemplate(models.Model):
     coa_document = fields.Binary(string="COA")
     coa_document_fname = fields.Char(string="COA Filename")
 
-    product_category_type = fields.Many2one('product.category.type', string="Product Category type")
+    product_category_type = fields.Many2one('product.category.type', string="Product Category")
+    sub_category_type = fields.Many2one('product.category', string="Sub Category")
     auto_code = fields.Char(string="Auto Sequence Code", readonly=False, copy=False)
+
+    @api.onchange("categ_id")
+    def _onchange_categ_id(self):
+        if self.categ_id:
+            return {
+                "domain": {
+                    "sub_category_type": [("parent_id", "=", self.categ_id.id)]
+                }
+            }
+        else:
+            return {"domain": {"sub_category_type": []}}
 
 
     # GENERAL
