@@ -163,8 +163,4 @@
     </record>
 
 
-    <menuitem
-            id="stock.menu_product_category_config_stocK"
-            name="Sub Category"/>
-    />
 </odoo>
