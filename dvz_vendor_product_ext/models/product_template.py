@@ -298,16 +298,16 @@ class ProductTemplate(models.Model):
     sub_category_type = fields.Many2one('product.category', string="Sub Category")
     auto_code = fields.Char(string="Auto Sequence Code", readonly=False, copy=False)
 
-    @api.onchange("categ_id")
-    def _onchange_categ_id(self):
-        if self.categ_id:
-            return {
-                "domain": {
-                    "sub_category_type": [("parent_id", "=", self.categ_id.id)]
-                }
-            }
-        else:
-            return {"domain": {"sub_category_type": []}}
+    # @api.onchange("categ_id")
+    # def _onchange_categ_id(self):
+    #     if self.categ_id:
+    #         return {
+    #             "domain": {
+    #                 "sub_category_type": [("parent_id", "=", self.categ_id.id)]
+    #             }
+    #         }
+    #     else:
+    #         return {"domain": {"sub_category_type": []}}
 
 
     # GENERAL
@@ -418,19 +418,19 @@ class ProductTemplate(models.Model):
         else:
             self.auto_code = False
 
-    allowed_category_idddds = fields.Many2many(
-        "product.category",
-        string="Allowed Categories",
-        compute="_compute_allowed_category_ids",
-        store=False
-    )
-
-    @api.depends("product_category_type")
-    def _compute_allowed_category_ids(self):
-        for rec in self:
-            if rec.product_category_type:
-                rec.allowed_category_ids = self.env["product.category"].search([
-                    ("main_category_id", "=", rec.product_category_type.id)
-                ])
-            else:
-                rec.allowed_category_ids = self.env["product.category"]
+    # allowed_category_idddds = fields.Many2many(
+    #     "product.category",
+    #     string="Allowed Categories",
+    #     compute="_compute_allowedddd_category_ids",
+    #     store=False
+    # )
+    #
+    # @api.depends("product_category_type")
+    # def _compute_allowedddd_category_ids(self):
+    #     for rec in self:
+    #         if rec.product_category_type:
+    #             rec.allowed_category_ids = self.env["product.category"].search([
+    #                 ("main_category_id", "=", rec.product_category_type.id)
+    #             ])
+    #         else:
+    #             rec.allowed_category_ids = self.env["product.category"]
