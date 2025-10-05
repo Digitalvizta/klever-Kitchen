@@ -418,19 +418,19 @@ class ProductTemplate(models.Model):
         else:
             self.auto_code = False
 
-    # allowed_category_ids = fields.Many2many(
-    #     "product.category",
-    #     string="Allowed Categories",
-    #     compute="_compute_allowed_category_ids",
-    #     store=False
-    # )
-    #
-    # @api.depends("product_category_type")
-    # def _compute_allowed_category_ids(self):
-    #     for rec in self:
-    #         if rec.product_category_type:
-    #             rec.allowed_category_ids = self.env["product.category"].search([
-    #                 ("main_category_id", "=", rec.product_category_type.id)
-    #             ])
-    #         else:
-    #             rec.allowed_category_ids = self.env["product.category"]
+    allowed_category_idddds = fields.Many2many(
+        "product.category",
+        string="Allowed Categories",
+        compute="_compute_allowed_category_ids",
+        store=False
+    )
+
+    @api.depends("product_category_type")
+    def _compute_allowed_category_ids(self):
+        for rec in self:
+            if rec.product_category_type:
+                rec.allowed_category_ids = self.env["product.category"].search([
+                    ("main_category_id", "=", rec.product_category_type.id)
+                ])
+            else:
+                rec.allowed_category_ids = self.env["product.category"]

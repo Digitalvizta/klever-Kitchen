@@ -5,6 +5,11 @@ class ProductCategory(models.Model):
 
     parent_category_id = fields.Many2one(
         "product.parent.category",
-        string="Main Category",
+        string="Parent Category",
         help="Select the main category for this category"
+    )
+
+    main_category_id = fields.Many2one(
+        "product.category.type",
+        string="Main Category Type"
     )
