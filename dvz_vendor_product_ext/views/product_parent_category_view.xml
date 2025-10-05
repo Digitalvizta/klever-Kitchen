@@ -33,7 +33,7 @@
                             <field name="name"/>
                         </group>
                         <group>
-                            <field name="product_category_type"/>
+                            <field name="product_category_type" widget="many2many_tags"/>
                         </group>
                     </group>
                      <notebook>

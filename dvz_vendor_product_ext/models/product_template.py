@@ -267,7 +267,7 @@ class ProductTemplate(models.Model):
     parent_category_type = fields.Many2one(
         "product.parent.category",
         string="Parent Category",
-        domain="[('product_category_type', '=', product_category_type)]",
+        domain="[('product_category_type', 'in', product_category_type)]",
         tracking=True,
     )
 
@@ -290,7 +290,7 @@ class ProductTemplate(models.Model):
         for rec in self:
             if rec.parent_category_type:
                 rec.allowed_category_ids = self.env["product.category"].search([
-                    ("parent_category_id", "=", rec.parent_category_type.id)
+                    ("parent_category_id", "in", rec.parent_category_type.id)
                 ])
             else:
                 rec.allowed_category_ids = False

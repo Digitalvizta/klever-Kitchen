@@ -12,5 +12,6 @@ class ProductParentCategory(models.Model):
     )
     description = fields.Text(string="Description")
 
-    product_category_type = fields.Many2one('product.category.type', string="Main Category", required=True)
+    # product_category_type = fields.Many2one('product.category.type', string="Main Category", required=True)
+    product_category_type = fields.Many2many('product.category.type', string="Main Category", required=True)
 
