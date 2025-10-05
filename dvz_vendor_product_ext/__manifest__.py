@@ -36,6 +36,7 @@ Key Features:
         'views/product_category_type_view.xml',
         'views/product_supplierinfo.xml',
         'views/product_category_view.xml',
+        'views/product_parent_category_view.xml',
     ],
     'installable': True,
     'application': False,

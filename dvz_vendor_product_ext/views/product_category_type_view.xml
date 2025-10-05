@@ -39,7 +39,7 @@
 
     <!-- Menu under Products/Configuration -->
     <menuitem id="menu_product_category_type_root"
-              name="Category Types"
+              name="Main Category"
               parent="stock.menu_stock_config_settings"
               sequence="20"
               action="action_product_category_type"/>

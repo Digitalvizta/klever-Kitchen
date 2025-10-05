@@ -256,7 +256,45 @@ class ProductTemplate(models.Model):
     coa_document = fields.Binary(string="COA")
     coa_document_fname = fields.Char(string="COA Filename")
 
-    product_category_type = fields.Many2one('product.category.type', string="Product Category")
+    # product_category_type = fields.Many2one('product.category.type', string="Main Category")
+    # parent_category_type = fields.Many2one('product.parent.category', string="Parent Category")
+    product_category_type = fields.Many2one(
+        "product.category.type",
+        string="Main Category",
+        tracking=True,
+    )
+
+    parent_category_type = fields.Many2one(
+        "product.parent.category",
+        string="Parent Category",
+        domain="[('product_category_type', '=', product_category_type)]",
+        tracking=True,
+    )
+
+    @api.onchange("product_category_type")
+    def _onchange_product_category_type(self):
+        """Auto-clear parent_category_id if type changes"""
+        for rec in self:
+            rec.parent_category_type = False
+
+    allowed_category_ids = fields.Many2many(
+        "product.category",
+        string="Allowed Categories",
+        compute="_compute_allowed_category_ids",
+        store=False,
+    )
+
+    @api.depends("parent_category_type")
+    def _compute_allowed_category_ids(self):
+        """Compute which categories are allowed based on selected parent"""
+        for rec in self:
+            if rec.parent_category_type:
+                rec.allowed_category_ids = self.env["product.category"].search([
+                    ("parent_category_id", "=", rec.parent_category_type.id)
+                ])
+            else:
+                rec.allowed_category_ids = False
+
     sub_category_type = fields.Many2one('product.category', string="Sub Category")
     auto_code = fields.Char(string="Auto Sequence Code", readonly=False, copy=False)
 
@@ -380,19 +418,19 @@ class ProductTemplate(models.Model):
         else:
             self.auto_code = False
 
-    allowed_category_ids = fields.Many2many(
-        "product.category",
-        string="Allowed Categories",
-        compute="_compute_allowed_category_ids",
-        store=False
-    )
-
-    @api.depends("product_category_type")
-    def _compute_allowed_category_ids(self):
-        for rec in self:
-            if rec.product_category_type:
-                rec.allowed_category_ids = self.env["product.category"].search([
-                    ("main_category_id", "=", rec.product_category_type.id)
-                ])
-            else:
-                rec.allowed_category_ids = self.env["product.category"]
+    # allowed_category_ids = fields.Many2many(
+    #     "product.category",
+    #     string="Allowed Categories",
+    #     compute="_compute_allowed_category_ids",
+    #     store=False
+    # )
+    #
+    # @api.depends("product_category_type")
+    # def _compute_allowed_category_ids(self):
+    #     for rec in self:
+    #         if rec.product_category_type:
+    #             rec.allowed_category_ids = self.env["product.category"].search([
+    #                 ("main_category_id", "=", rec.product_category_type.id)
+    #             ])
+    #         else:
+    #             rec.allowed_category_ids = self.env["product.category"]

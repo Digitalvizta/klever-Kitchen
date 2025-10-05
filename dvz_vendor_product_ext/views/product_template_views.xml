@@ -17,11 +17,10 @@
             <!-- Add domain dynamically -->
             <xpath expr="//field[@name='categ_id']" position="attributes">
                 <attribute name="domain">[('id', 'in', allowed_category_ids)]</attribute>
-                <!--                            <attribute name="domain">[('id', '=', parent_id)]</attribute>-->
             </xpath>
 
             <xpath expr="//field[@name='categ_id']" position="attributes">
-                <attribute name="string">Parent Category</attribute>
+                <attribute name="string">Sub Category</attribute>
             </xpath>
 
             <!-- Manufacturer Tab -->
@@ -135,14 +134,11 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
 
+            <xpath expr="//field[@name='categ_id']" position="before">
+                <field name="parent_category_type" required="1"/>
+            </xpath>
             <xpath expr="//field[@name='type']" position="after">
-                <field name="product_category_type" required="1"/>
-                <field name="sub_category_type"
-                       domain="[('parent_id', '=', categ_id)]"
-                       required="1"/><!--                <field name="parent_category_type"-->
-                <!--                       required="1"-->
-                <!--                       domain="[('id', '=', parent_id)]"/>-->
-
+                <field name="product_category_type" string="Main Category" required="1"/>
                 <field name="auto_code" readonly="1" force_save="1"/>
             </xpath>
 
@@ -165,4 +161,10 @@
             </xpath>
         </field>
     </record>
+
+
+    <menuitem
+            id="stock.menu_product_category_config_stocK"
+            name="Sub Category"/>
+    />
 </odoo>
