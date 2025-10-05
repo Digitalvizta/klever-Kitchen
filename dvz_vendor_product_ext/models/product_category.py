@@ -11,5 +11,5 @@ class ProductCategory(models.Model):
 
     main_category_id = fields.Many2one(
         "product.category.type",
-        string="Main Category Type"
+        string="Main Category"
     )
