@@ -99,15 +99,15 @@ class ProductTemplate(models.Model):
         'sale_ok', 'purchase_ok', 'type', 'categ_id', 'product_category_type', 'barcode'
     ]
 
-    def write(self, vals):
-        if any(field in vals for field in self._LOCKED_AFTER_CREATE):
-            locked_fields_attempt = [f for f in self._LOCKED_AFTER_CREATE if f in vals]
-            if self.filtered(lambda r: r.id):
-                raise ValidationError(_(
-                    "The following fields cannot be changed after creation: %s"
-                ) % (', '.join(locked_fields_attempt)))
-
-        return super(ProductTemplate, self).write(vals)
+    # def write(self, vals):
+    #     if any(field in vals for field in self._LOCKED_AFTER_CREATE):
+    #         locked_fields_attempt = [f for f in self._LOCKED_AFTER_CREATE if f in vals]
+    #         if self.filtered(lambda r: r.id):
+    #             raise ValidationError(_(
+    #                 "The following fields cannot be changed after creation: %s"
+    #             ) % (', '.join(locked_fields_attempt)))
+    #
+    #     return super(ProductTemplate, self).write(vals)
 
     # Manufacturer
     manufacturer_description = fields.Text(string="Manufacturer Description")
