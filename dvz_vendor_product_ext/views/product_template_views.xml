@@ -156,8 +156,84 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_tree_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position="before">
+            <!-- Insert custom fields -->
+            <xpath expr="//field[@name='name']" position="after">
+
+                <!-- Auto sequence -->
                 <field name="auto_sequence_code" string="Code"/>
+
+                <!-- Manufacturer -->
+                <field name="manufacturer_id" optional="hide"/>
+                <field name="manufacturer_pname" optional="hide"/>
+                <field name="manufacturer_pref" optional="hide"/>
+                <field name="manufacturer_brand" optional="hide"/>
+                <field name="manufacturer_purl" optional="hide"/>
+                <field name="manufacturer_des" optional="hide"/>
+                <field name="manufacturer_sku" optional="hide"/>
+                <field name="previous_manufacturer_code" optional="hide"/>
+                <field name="storage_tempature" optional="hide"/>
+                <field name="trade_item_date_on_pack_type" optional="hide"/>
+
+                <!-- Vendor -->
+                <field name="vendor_id" optional="hide"/>
+                <field name="vendor_product_name" optional="hide"/>
+                <field name="vendor_sku" optional="hide"/>
+                <field name="vendor_pack_size" optional="hide"/>
+                <field name="vendor_pack_size_uom" optional="hide"/>
+                <field name="vendor_delivery_lead_time" optional="hide"/>
+                <field name="purchase_price" optional="hide"/>
+
+                <!-- Pricing -->
+                <field name="standard_price" optional="hide"/>
+                <field name="list_price" optional="hide"/>
+
+                <!-- Category / Classification -->
+                <field name="product_category_type" optional="hide"/>
+                <field name="parent_category_type" optional="hide"/>
+                <field name="sub_category_type" optional="hide"/>
+                <field name="auto_code" optional="hide"/>
+
+                <!-- Inventory -->
+                <field name="inventory_location" optional="hide"/>
+                <field name="storage_location" optional="hide"/>
+                <field name="shelf_life_days" optional="hide"/>
+                <field name="lot_number" optional="hide"/>
+                <field name="expiration_date" optional="hide"/>
+
+                <!-- Packaging -->
+                <field name="pack_size_qty_1" optional="hide"/>
+                <field name="pack_size_qty_2" optional="hide"/>
+                <field name="pack_size_uom" optional="hide"/>
+                <field name="pack_container_type" optional="hide"/>
+                <field name="pack_size_display" optional="hide"/>
+                <field name="net_weight" optional="hide"/>
+                <field name="net_weight_uom" optional="hide"/>
+                <field name="box_type" optional="hide"/>
+                <field name="package_height_in" optional="hide"/>
+                <field name="package_width_in" optional="hide"/>
+                <field name="package_depth_in" optional="hide"/>
+                <field name="package_weight" optional="hide"/>
+                <field name="package_weight_uom" optional="hide"/>
+                <field name="layers_per_pallet" optional="hide"/>
+                <field name="items_per_layer" optional="hide"/>
+                <field name="pallet_height_in" optional="hide"/>
+
+                <!-- Marketing -->
+                <field name="brand_name" optional="hide"/>
+                <field name="marketing_message" optional="hide"/>
+                <field name="basic_preparation" optional="hide"/>
+                <field name="serving_information" optional="hide"/>
+
+                <!-- GLN and Identifiers -->
+                <field name="information_owner_gln" optional="hide"/>
+                <field name="ingredients" optional="hide"/>
+                <field name="contains" optional="hide"/>
+                <field name="allergen_statement_text" optional="hide"/>
+                <field name="contains_ids" optional="hide"/>
+                <field name="fish_type" optional="hide"/>
+                <field name="crustacean_type" optional="hide"/>
+                <field name="tree_nut_type" optional="hide"/>
+
             </xpath>
         </field>
     </record>
