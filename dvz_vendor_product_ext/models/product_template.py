@@ -95,7 +95,8 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
 
 
-    x_studio_vendor_product = fields.Char(default=False)
+    x_studio_vendor_product = fields.Char(string="Label Image Filename")
+
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
