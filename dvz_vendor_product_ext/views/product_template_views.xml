@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">product_hide_sale_cost_price.product_template_form_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='list_price']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <field name="list_price" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="standard_price" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <xpath expr="//label[@for='standard_price']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
     <record id="view_product_template_form_inherit_custom" model="ir.ui.view">
         <field name="name">product.template.form.inherit.custom</field>
         <field name="model">product.template</field>
@@ -156,7 +177,7 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_tree_view"/>
         <field name="arch" type="xml">
-             <xpath expr="//field[@name='categ_id']" position="attributes">
+            <xpath expr="//field[@name='categ_id']" position="attributes">
                 <attribute name="string">Sub Category</attribute>
             </xpath>
             <!-- Insert custom fields -->
@@ -193,7 +214,7 @@
                 <!-- Category / Classification -->
                 <field name="product_category_type" optional="hide"/>
                 <field name="parent_category_type" optional="hide"/>
-<!--                <field name="categ_id" string="Sub Category" optional="hide"/>-->
+                <!--                <field name="categ_id" string="Sub Category" optional="hide"/>-->
                 <field name="auto_code" optional="hide"/>
 
                 <!-- Inventory -->

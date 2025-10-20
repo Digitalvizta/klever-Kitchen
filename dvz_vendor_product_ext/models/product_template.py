@@ -91,9 +91,15 @@ class ProductAllergen(models.Model):
     name = fields.Char(required=True)
     code = fields.Char()
 
+class ProductProduct(models.Model):
+    _inherit = "product.product"
+
+
+    x_studio_vendor_product = fields.Char(default=False)
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
+
 
     _LOCKED_AFTER_CREATE = [
         'sale_ok', 'purchase_ok', 'type', 'categ_id', 'product_category_type', 'barcode'
