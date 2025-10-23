@@ -6,7 +6,31 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
+
+            <!-- Remove existing fields from main section -->
+<!--            <xpath expr="//field[@name='list_price']" position="replace"/>-->
+<!--            <xpath expr="//field[@name='taxes_id']" position="replace"/>-->
+<!--            <xpath expr="//field[@name='standard_price']" position="replace"/>-->
+
+            <!-- Move Sale Price to Sales tab -->
+            <xpath expr="//page[@name='sales']" position="inside">
+                <group string="Sales Price">
+                    <field name="list_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="taxes_id" widget="many2many_tags"/>
+                </group>
+            </xpath>
+
+            <!-- Move Purchase Price to Purchase tab -->
+            <xpath expr="//page[@name='purchase']" position="inside">
+                <group string="Purchase Price">
+                    <field name="standard_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </group>
+            </xpath>
+
             <xpath expr="//label[@for='list_price']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='taxes_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
             <field name="list_price" position="attributes">
@@ -151,9 +175,9 @@
             </xpath>
 
             <!-- Hide the default_code field -->
-            <xpath expr="//field[@name='default_code']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
+<!--            <xpath expr="//field[@name='default_code']" position="attributes">-->
+<!--                <attribute name="invisible">1</attribute>-->
+<!--            </xpath>-->
 
             <xpath expr="//field[@name='categ_id']" position="before">
                 <field name="parent_category_type" required="1"/>

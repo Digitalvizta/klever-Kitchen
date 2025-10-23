@@ -407,23 +407,23 @@ class ProductTemplate(models.Model):
             # find last product with same category type
             last = self.env["product.template"].search(
                 [("product_category_type", "=", self.product_category_type.id),
-                 ("auto_code", "like", f"{prefix}%")],
-                order="auto_code desc",
+                 ("default_code", "like", f"{prefix}%")],
+                order="default_code desc",
                 limit=1
             )
 
-            if last and last.auto_code and last.auto_code.startswith(prefix):
+            if last and last.default_code and last.default_code.startswith(prefix):
                 try:
-                    last_number = int(last.auto_code.replace(prefix, "") or 0)
+                    last_number = int(last.default_code.replace(prefix, "") or 0)
                 except ValueError:
                     last_number = 0
             else:
                 last_number = 0
 
             new_number = last_number + 1
-            self.auto_code = f"{prefix}{str(new_number).zfill(4)}"  # e.g. FG0001
+            self.default_code = f"{prefix}{str(new_number).zfill(4)}"  # e.g. FG0001
         else:
-            self.auto_code = False
+            self.default_code = False
 
     # allowed_category_idddds = fields.Many2many(
     #     "product.category",
