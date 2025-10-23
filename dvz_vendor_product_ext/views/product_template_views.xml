@@ -239,6 +239,7 @@
                 <field name="product_category_type" optional="hide"/>
                 <field name="parent_category_type" optional="hide"/>
                 <!--                <field name="categ_id" string="Sub Category" optional="hide"/>-->
+                <field name="default_code" optional="hide"/>
                 <field name="auto_code" optional="hide"/>
 
                 <!-- Inventory -->
