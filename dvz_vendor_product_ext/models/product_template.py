@@ -399,31 +399,74 @@ class ProductTemplate(models.Model):
             if rec.shelf_life_days and (rec.shelf_life_days < 0 or rec.shelf_life_days > 999):
                 raise ValidationError("Shelf life must be 0-999 days.")
 
+
+
     @api.onchange("product_category_type")
     def _onchange_product_category_type(self):
-        if self.product_category_type:
-            prefix = self.product_category_type.name.strip().upper()  # e.g. FG
+        """Auto-generate default_code when category changes in UI."""
+        self._generate_default_code()
 
-            # find last product with same category type
-            last = self.env["product.template"].search(
-                [("product_category_type", "=", self.product_category_type.id),
-                 ("default_code", "like", f"{prefix}%")],
-                order="default_code desc",
-                limit=1
-            )
+    @api.model
+    def create(self, vals):
+        """Auto-generate default_code on record creation if category type is provided."""
+        record = super().create(vals)
+        if not record.default_code and record.product_category_type:
+            record._generate_default_code()
+        return record
 
-            if last and last.default_code and last.default_code.startswith(prefix):
-                try:
-                    last_number = int(last.default_code.replace(prefix, "") or 0)
-                except ValueError:
+    def _generate_default_code(self):
+        """Helper function to generate next default_code."""
+        for rec in self:
+            if rec.product_category_type:
+                prefix = rec.product_category_type.name.strip().upper()  # e.g. FG
+
+                last = self.env["product.template"].search(
+                    [
+                        ("product_category_type", "=", rec.product_category_type.id),
+                        ("default_code", "like", f"{prefix}%"),
+                    ],
+                    order="default_code desc",
+                    limit=1,
+                )
+
+                if last and last.default_code and last.default_code.startswith(prefix):
+                    try:
+                        last_number = int(last.default_code.replace(prefix, "") or 0)
+                    except ValueError:
+                        last_number = 0
+                else:
                     last_number = 0
-            else:
-                last_number = 0
 
-            new_number = last_number + 1
-            self.default_code = f"{prefix}{str(new_number).zfill(4)}"  # e.g. FG0001
-        else:
-            self.default_code = False
+                new_number = last_number + 1
+                rec.default_code = f"{prefix}{str(new_number).zfill(4)}"  # e.g. FG0001
+            else:
+                rec.default_code = False
+
+    # @api.onchange("product_category_type")
+    # def _onchange_product_category_type(self):
+    #     if self.product_category_type:
+    #         prefix = self.product_category_type.name.strip().upper()  # e.g. FG
+    #
+    #         # find last product with same category type
+    #         last = self.env["product.template"].search(
+    #             [("product_category_type", "=", self.product_category_type.id),
+    #              ("default_code", "like", f"{prefix}%")],
+    #             order="default_code desc",
+    #             limit=1
+    #         )
+    #
+    #         if last and last.default_code and last.default_code.startswith(prefix):
+    #             try:
+    #                 last_number = int(last.default_code.replace(prefix, "") or 0)
+    #             except ValueError:
+    #                 last_number = 0
+    #         else:
+    #             last_number = 0
+    #
+    #         new_number = last_number + 1
+    #         self.default_code = f"{prefix}{str(new_number).zfill(4)}"  # e.g. FG0001
+    #     else:
+    #         self.default_code = False
 
     # allowed_category_idddds = fields.Many2many(
     #     "product.category",
