@@ -124,7 +124,17 @@ class ProductTemplate(models.Model):
     label_image_fname = fields.Char(string="Label Image Filename")
 
     # Vendor
-    vendor_id = fields.Many2one("res.partner", string="Vendor")
+    # vendor_id = fields.Many2one("res.partner", string="Vendor")
+    vendor_id = fields.Many2one("res.partner", string="Vendor", compute="_compute_vendor_id", store=True)
+
+    @api.depends("seller_ids")
+    def _compute_vendor_id(self):
+        """Set vendor_id to the first vendor from the Purchase tab (seller_ids)."""
+        for product in self:
+            if product.seller_ids:
+                product.vendor_id = product.seller_ids[0].name.id  # First vendor (res.partner)
+            else:
+                product.vendor_id = False
     vendor_product_name = fields.Char(string="Vendor Product")
     vendor_delivery_lead_time = fields.Integer(string="Vendor Delivery Lead Time (days)")
     purchase_price = fields.Float(string="Purchase Price")
@@ -143,11 +153,7 @@ class ProductTemplate(models.Model):
         string="Package Cubic Feet",
         store=True
     )
-    # package_cubic_feet = fields.Float(
-    #     string="Package Cubic Feet",
-    #     compute="_compute_package_cubic_feet",
-    #     store=True
-    # )
+
 
     # Marketing
     pos_image = fields.Binary(string="POS Image")
