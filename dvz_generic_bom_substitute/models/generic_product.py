@@ -47,20 +47,47 @@ class GenericProduct(models.Model):
 
     @api.onchange('vendor_id')
     def _onchange_vendor_id(self):
-        if self.vendor_id:
-            supplier_infos = self.env['product.supplierinfo'].search([('partner_id', '=', self.vendor_id.id)])
-            product_ids = supplier_infos.mapped('product_tmpl_id').ids
-            products_with_vendor = self.env['product.template'].browse(product_ids).filtered(lambda p: p.purchase_ok)
-            return {
-                'domain': {
-                    'substitute_product_id': [('id', 'in', products_with_vendor.ids)]
-                }
-            }
-        else:
-            # No vendor selected — no products should be visible
-            return {
-                'domain': {
-                    'substitute_product_id': [('id', '=', False)]
-                }
-            }
+        """Return a domain for substitute_product_id filtered by vendor.
+        Clear substitute_product_id when vendor changes.
+        """
+        for rec in self:
+            # clear old selection so user sees the filtered list
+            rec.substitute_product_id = False
+
+            if not rec.vendor_id:
+                # if vendor cleared -> allow any purchase_ok products
+                return {'domain': {'substitute_product_id': [('purchase_ok', '=', True)]}}
+
+            # LIGHTWEIGHT DIRECT DOMAIN (preferred)
+            # This tells the client to filter product templates whose seller_ids.partner_id == vendor
+            try:
+                domain = [('purchase_ok', '=', True),
+                          ('seller_ids.partner_id', '=', rec.vendor_id.id)]
+                return {'domain': {'substitute_product_id': domain}}
+            except Exception:
+                # fallback to explicit search (safer in some clients)
+                product_ids = self.env['product.template'].search([
+                    ('seller_ids.partner_id', '=', rec.vendor_id.id),
+                    ('purchase_ok', '=', True),
+                ]).ids
+                return {'domain': {'substitute_product_id': [('id', 'in', product_ids)]}}
+
+# @api.onchange('vendor_id')
+    # def _onchange_vendor_id(self):
+    #     if self.vendor_id:
+    #         supplier_infos = self.env['product.supplierinfo'].search([('partner_id', '=', self.vendor_id.id)])
+    #         product_ids = supplier_infos.mapped('product_tmpl_id').ids
+    #         products_with_vendor = self.env['product.template'].browse(product_ids).filtered(lambda p: p.purchase_ok)
+    #         return {
+    #             'domain': {
+    #                 'substitute_product_id': [('id', 'in', products_with_vendor.ids)]
+    #             }
+    #         }
+    #     else:
+    #         # No vendor selected — no products should be visible
+    #         return {
+    #             'domain': {
+    #                 'substitute_product_id': [('id', '=', False)]
+    #             }
+    #         }
 
