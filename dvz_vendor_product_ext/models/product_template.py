@@ -132,7 +132,7 @@ class ProductTemplate(models.Model):
         """Set vendor_id to the first vendor from the Purchase tab (seller_ids)."""
         for product in self:
             if product.seller_ids:
-                product.vendor_id = product.seller_ids[0].name.id  # First vendor (res.partner)
+                product.vendor_id = product.partner_id[0].name.id  # First vendor (res.partner)
             else:
                 product.vendor_id = False
     vendor_product_name = fields.Char(string="Vendor Product")
