@@ -1,0 +1,14 @@
+<odoo>
+    <record id="view_product_stock_tree_inherit_rm" model="ir.ui.view">
+        <field name="name">product.product.stock.tree.inherit.rm</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.product_product_stock_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='qty_available']" position="after">
+                <field name="rm_onhand_qty"/>
+                <field name="rm_vendor_product_ids" widget="many2many_tags"/>
+                <field name="rm_vendor_qty_sum"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

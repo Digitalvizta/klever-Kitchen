@@ -26,7 +26,8 @@ and maintains clean BoMs without hardcoding specific vendor products.
     'data': [
         'security/ir.model.access.csv',
         # 'data/sequence.xml',
-        'views/product_template_views.xml'
+        'views/product_template_views.xml',
+        'views/product_stock_tree_inherit.xml'
     ],
 
     'demo': [

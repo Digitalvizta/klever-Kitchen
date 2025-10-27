@@ -14,7 +14,6 @@ class GenericProduct(models.Model):
     substitute_product_id = fields.Many2one(
         'product.template',
         string="Substitute Product",
-        domain=[('purchase_ok', '=', True)],
         help="Actual product that acts as a substitute."
     )
 
