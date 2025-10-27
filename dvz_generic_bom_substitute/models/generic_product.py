@@ -44,32 +44,32 @@ class GenericProduct(models.Model):
                     qty += variant.qty_available  # Sum across all variants
             record.onhand_qty = qty
 
-    @api.onchange('vendor_id')
-    def _onchange_vendor_id(self):
-        """Return a domain for substitute_product_id filtered by vendor.
-        Clear substitute_product_id when vendor changes.
-        """
-        for rec in self:
-            # clear old selection so user sees the filtered list
-            rec.substitute_product_id = False
-
-            if not rec.vendor_id:
-                # if vendor cleared -> allow any purchase_ok products
-                return {'domain': {'substitute_product_id': [('purchase_ok', '=', True)]}}
-
-            # LIGHTWEIGHT DIRECT DOMAIN (preferred)
-            # This tells the client to filter product templates whose seller_ids.partner_id == vendor
-            try:
-                domain = [('purchase_ok', '=', True),
-                          ('seller_ids.partner_id', '=', rec.vendor_id.id)]
-                return {'domain': {'substitute_product_id': domain}}
-            except Exception:
-                # fallback to explicit search (safer in some clients)
-                product_ids = self.env['product.template'].search([
-                    ('seller_ids.partner_id', '=', rec.vendor_id.id),
-                    ('purchase_ok', '=', True),
-                ]).ids
-                return {'domain': {'substitute_product_id': [('id', 'in', product_ids)]}}
+    # @api.onchange('vendor_id')
+    # def _onchange_vendor_id(self):
+    #     """Return a domain for substitute_product_id filtered by vendor.
+    #     Clear substitute_product_id when vendor changes.
+    #     """
+    #     for rec in self:
+    #         # clear old selection so user sees the filtered list
+    #         rec.substitute_product_id = False
+    #
+    #         if not rec.vendor_id:
+    #             # if vendor cleared -> allow any purchase_ok products
+    #             return {'domain': {'substitute_product_id': [('purchase_ok', '=', True)]}}
+    #
+    #         # LIGHTWEIGHT DIRECT DOMAIN (preferred)
+    #         # This tells the client to filter product templates whose seller_ids.partner_id == vendor
+    #         try:
+    #             domain = [('purchase_ok', '=', True),
+    #                       ('seller_ids.partner_id', '=', rec.vendor_id.id)]
+    #             return {'domain': {'substitute_product_id': domain}}
+    #         except Exception:
+    #             # fallback to explicit search (safer in some clients)
+    #             product_ids = self.env['product.template'].search([
+    #                 ('seller_ids.partner_id', '=', rec.vendor_id.id),
+    #                 ('purchase_ok', '=', True),
+    #             ]).ids
+    #             return {'domain': {'substitute_product_id': [('id', 'in', product_ids)]}}
 
 # @api.onchange('vendor_id')
     # def _onchange_vendor_id(self):

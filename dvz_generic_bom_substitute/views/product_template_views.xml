@@ -11,8 +11,12 @@
                         <field name="physical_salts_ids" widget="one2many">
                             <list editable="bottom">
                                 <field name="vendor_id"/>
-                                <field name="substitute_product_id"/>
+                                <field name="substitute_product_id"
+                                       domain="[('purchase_ok', '=', True),
+                                                ('seller_ids.partner_id', '=', vendor_id)]"/>
                                 <field name="onhand_qty"/>
+<!--                                <field name="substitute_product_id"/>-->
+<!--                                <field name="onhand_qty"/>-->
                             </list>
                         </field>
                     </group>
