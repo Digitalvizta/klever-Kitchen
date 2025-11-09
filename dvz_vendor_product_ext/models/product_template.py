@@ -101,13 +101,35 @@ class ProductProduct(models.Model):
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    @api.onchange('seller_ids.price')
-    def _onchange_standard_price_update_vendor(self):
-        """When cost changes, update the first vendor price line automatically."""
+    # standard_price = fields.Float(
+    #     string="Cost",
+    #     compute="_compute_standard_price_from_vendor",
+    #     inverse="_set_standard_price",
+    #     store=True
+    # )
+    #
+    # @api.depends('seller_ids.price')
+    # def _compute_standard_price_from_vendor(self):
+    #     for product in self:
+    #         if product.seller_ids:
+    #             # Take price of first vendor
+    #             product.standard_price = product.seller_ids[0].price
+    #
+    # def _set_standard_price(self):
+    #     for product in self:
+    #         if product.seller_ids:
+    #             # Update first vendor price when standard_price changes
+    #             product.seller_ids[0].price = product.standard_price
+    #
+
+    @api.onchange('seller_ids')
+    def _onchange_seller_ids_update_standard_price(self):
+        """Update standard price from the first vendor price."""
         for product in self:
             if product.seller_ids:
                 first_vendor = product.seller_ids[0]
-                product.standard_price = first_vendor.price
+                if first_vendor.price:
+                    product.standard_price = first_vendor.price
 
 
     _LOCKED_AFTER_CREATE = [
