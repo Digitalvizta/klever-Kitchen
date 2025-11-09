@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <!-- Insert field after the 'categ_id' (category) field, which always exists -->
             <xpath expr="//field[@name='categ_id']" position="after">
-                <field name="allowed_customer_ids" widget="many2many_tags"/>
+                <field name="allowed_user_ids" widget="many2many_tags"/>
             </xpath>
         </field>
     </record>
@@ -20,7 +20,7 @@
         <field name="inherit_id" ref="product.product_template_tree_view"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='type']" position="after">
-                <field name="allowed_customer_ids"/>
+                <field name="allowed_user_ids"/>
             </xpath>
         </field>
     </record>
