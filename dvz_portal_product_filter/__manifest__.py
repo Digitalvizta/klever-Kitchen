@@ -30,7 +30,7 @@ Key Features:
     'data': [
         'security/ir_rule.xml',
         # 'security/ir.model.access.csv',
-        # 'views/product_template_views.xml',
+        'views/product_template_views.xml',
     ],
 
     'installable': True,
