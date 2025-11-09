@@ -6,14 +6,14 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_only_form_view"/>
         <field name="arch" type="xml">
-            <!-- Insert after the 'website_published' field -->
-            <xpath expr="//field[@name='website_published']" position="after">
+            <!-- Insert field after the 'categ_id' (category) field, which always exists -->
+            <xpath expr="//field[@name='categ_id']" position="after">
                 <field name="allowed_customer_ids" widget="many2many_tags"/>
             </xpath>
         </field>
     </record>
 
-    <!-- Optional: Tree/List View for quick visibility -->
+    <!-- Optional Tree/List View -->
     <record id="view_product_template_tree_inherit_portal_filter" model="ir.ui.view">
         <field name="name">product.template.tree.inherit.portal.filter</field>
         <field name="model">product.template</field>
