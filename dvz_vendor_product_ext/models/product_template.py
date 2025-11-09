@@ -101,6 +101,14 @@ class ProductProduct(models.Model):
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
+    @api.onchange('seller_ids.price')
+    def _onchange_standard_price_update_vendor(self):
+        """When cost changes, update the first vendor price line automatically."""
+        for product in self:
+            if product.seller_ids:
+                first_vendor = product.seller_ids[0]
+                product.standard_price = first_vendor.price
+
 
     _LOCKED_AFTER_CREATE = [
         'sale_ok', 'purchase_ok', 'type', 'categ_id', 'product_category_type', 'barcode'
