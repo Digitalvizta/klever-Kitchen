@@ -1,8 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="portal_product_filter_rule" model="ir.rule">
-        <field name="name">Portal Product Filter</field>
+    <!-- Portal users see only products assigned to them -->
+    <record id="rule_portal_user_product_visibility" model="ir.rule">
+        <field name="name">Portal User Product Visibility</field>
         <field name="model_id" ref="product.model_product_template"/>
+        <field name="domain_force">
+            [('allowed_user_ids', 'in', [user.id])]
+        </field>
         <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
-        <field name="domain_force">[('allowed_customer_ids', 'in', [user.partner_id.id])]</field>
     </record>
 </odoo>

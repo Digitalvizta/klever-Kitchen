@@ -1,17 +1,18 @@
-from odoo import models, api, fields
+from odoo import models, fields, api
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    allowed_customer_ids = fields.Many2many(
-        'res.partner',
-        string="Allowed Customers",
-        help="Only selected customers can view this product on the portal."
+    allowed_user_ids = fields.Many2many(
+        'res.users',
+        string="Allowed Portal Users",
+        domain=[('share', '=', True)],
+        help="Only selected portal users can view this product on the portal."
     )
 
     @api.model
     def _website_search(self, domain, search, **kwargs):
-        partner = self.env.user.partner_id
-        if partner and not self.env.user.has_group('base.group_system'):
-            domain += [('allowed_customer_ids', 'in', [partner.id])]
+        user = self.env.user
+        if user and not user.has_group('base.group_system'):
+            domain += [('allowed_user_ids', 'in', [user.id])]
         return super()._website_search(domain, search, **kwargs)
