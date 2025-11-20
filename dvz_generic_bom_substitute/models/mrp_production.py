@@ -74,10 +74,11 @@ class MrpProduction(models.Model):
                         break
 
                 if assigned_qty < qty_to_assign:
-                    raise UserError(
-                        f"Not enough stock of substitutes for generic product '{product_template.name}'. "
-                        f"Needed: {qty_to_assign}, Assigned: {assigned_qty}"
-                    )
+                    # raise UserError(
+                    #     f"Not enough stock of substitutes for generic product '{product_template.name}'. "
+                    #     f"Needed: {qty_to_assign}, Assigned: {assigned_qty}"
+                    # )
+                    continue
 
                 # Remove original generic move
                 move.unlink()

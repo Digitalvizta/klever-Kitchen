@@ -2,7 +2,7 @@
 {
     'name': "dev_weekly_sale",
 
-    'summary': "Track weekly sales of products, displaying total quantities ordered per week",
+    'summary': "Track weekly sales of products, displaying total quantities ordered per week.",
 
     'description': """
 This module provides an easy way to track and visualize the total quantity of each product sold within a given week. 
